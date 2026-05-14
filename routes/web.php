@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ObatController;
 use App\Http\Controllers\KategoriController;
 
+
 // Panggil file landing.blade.php di dalam folder user
 Route::get('/', function () {
     $obat = \App\Models\Obat::all(); // Ambil semua data obat
@@ -33,3 +34,6 @@ Route::delete('/admin/obat/{id}', [ObatController::class, 'destroy']);
 
 // Route untuk halaman kategori
 Route::get('/admin/kategori', [KategoriController::class, 'index']);
+
+// Sesuaikan dengan group admin kamu jika ada
+Route::get('/admin/obat/{id}', [App\Http\Controllers\ObatController::class, 'show']);

@@ -4,67 +4,43 @@
 
 @section('content')
 <section class="section">
-    <!-- Header Halaman -->
     <div class="section-header">
         <h1>Dashboard Apotek</h1>
     </div>
 
     <div class="section-body">
-        <!-- BARIS WIDGET STATISTIK -->
+        <!-- WIDGET STATISTIK -->
         <div class="row">
-            <!-- Widget Total Obat -->
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-pills"></i>
-                    </div>
+                    <div class="card-icon bg-primary"><i class="fas fa-pills"></i></div>
                     <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Jenis Obat</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $total_obat }}
-                        </div>
+                        <div class="card-header"><h4>Total Jenis Obat</h4></div>
+                        <div class="card-body">{{ $total_obat }}</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Widget Stok Hampir Habis -->
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
+                    <div class="card-icon bg-warning"><i class="fas fa-exclamation-triangle"></i></div>
                     <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Stok < 10</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $stok_limit }}
-                        </div>
+                        <div class="card-header"><h4>Stok < 10</h4></div>
+                        <div class="card-body">{{ $stok_limit }}</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Widget Tanggal Hari Ini -->
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
+                    <div class="card-icon bg-success"><i class="fas fa-calendar-alt"></i></div>
                     <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Hari Ini</h4>
-                        </div>
-                        <div class="card-body" style="font-size: 14px;">
-                            {{ date('d M Y') }}
-                        </div>
+                        <div class="card-header"><h4>Hari Ini</h4></div>
+                        <div class="card-body" style="font-size: 14px;">{{ date('d M Y') }}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- BARIS TABEL DATA OBAT -->
+        <!-- TABEL DATA OBAT -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -76,19 +52,15 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-striped table-md">
+                            <table class="table table-striped table-md" id="table-obat">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Foto</th>
                                         <th>Kategori</th>
                                         <th>Nama Obat</th>
-                                        <th>Deskripsi</th>
                                         <th>Harga</th>
                                         <th>Stok</th>
-                                        <th>Satuan</th>
-                                        <th>Produksi</th>
-                                        <th>Expired</th> 
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -98,32 +70,27 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>
                                             @if($o->foto)
-                                                <img src="{{ asset('assets/img/obat/'.$o->foto) }}" width="50" class="rounded">
+                                                <img src="{{ asset('assets/img/obat/'.$o->foto) }}" width="50" class="rounded shadow-sm">
                                             @else
                                                 <small class="text-muted">No Image</small>
                                             @endif
                                         </td>
                                         <td>{{ $o->id_kategori }}</td>
                                         <td><strong>{{ $o->nama_obat }}</strong></td>
-                                        <td>{{ Str::limit($o->deskripsi, 30) }}</td>
                                         <td>Rp {{ number_format($o->harga_obat, 0, ',', '.') }}</td>
                                         <td>
-                                            @if($o->stok <= 10)
-                                                <span class="badge badge-danger">{{ $o->stok }}</span>
-                                            @else
-                                                <span class="badge badge-success">{{ $o->stok }}</span>
-                                            @endif
+                                            <span class="badge {{ $o->stok <= 10 ? 'badge-danger' : 'badge-success' }}">
+                                                {{ $o->stok }}
+                                            </span>
                                         </td>
-                                        <td>{{ $o->satuan }}</td>
-                                        <td>{{ $o->waktu_produksi ? date('d/m/Y', strtotime($o->waktu_produksi)) : '-' }}</td>
-                                        <td>{{ $o->tanggal_exp ? date('d/m/Y', strtotime($o->tanggal_exp)) : '-' }}</td>
                                         <td>
                                             <div class="d-flex" style="gap: 5px;">
+                                                <button type="button" class="btn btn-info btn-sm btn-detail" data-id="{{ $o->id }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
                                                 <a href="/admin/obat/{{ $o->id }}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                
-                                                <form action="/admin/obat/{{ $o->id }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                <form action="/admin/obat/{{ $o->id }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+                                                    @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
@@ -139,4 +106,85 @@
         </div>
     </div>
 </section>
+
+<!-- MODAL DETAIL (Diletakkan di luar Section Body agar tidak tertutup) -->
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" style="z-index: 1050;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" style="color: white !important;">Detail Data Obat</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-content-body">
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <img id="detail_foto" src="" class="img-fluid rounded shadow" style="max-height: 250px;">
+                    </div>
+                    <div class="col-md-7">
+                        <table class="table table-sm table-borderless">
+                            <tr><th width="120">Nama Obat</th><td>: <span id="detail_nama" class="font-weight-bold"></span></td></tr>
+                            <tr><th>Kategori</th><td>: <span id="detail_kategori"></span></td></tr>
+                            <tr><th>Harga</th><td>: <span class="text-success font-weight-bold">Rp <span id="detail_harga"></span></span></td></tr>
+                            <tr><th>Stok</th><td>: <span id="detail_stok"></span> <span id="detail_satuan"></span></td></tr>
+                            <tr><th>Produksi</th><td>: <span id="detail_produksi"></span></td></tr>
+                            <tr><th>Expired</th><td>: <span id="detail_expired" class="text-danger"></span></td></tr>
+                        </table>
+                        <hr>
+                        <h6>Deskripsi :</h6>
+                        <p id="detail_deskripsi" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+<!-- SCRIPT HARUS DI DALAM PUSH AGAR JQUERY TERBACA SETELAH HALAMAN SIAP -->
+@push('scripts')
+<script>
+$(document).ready(function() {
+    // Gunakan Event Delegation
+    $(document).on('click', '.btn-detail', function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        
+        // Reset modal ke kondisi loading
+        $('#detail_nama').text('Loading...');
+        $('#detail_foto').attr('src', '');
+        
+        $.ajax({
+            url: '/admin/obat/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function(res) {
+                $('#detail_nama').text(res.nama_obat);
+                $('#detail_kategori').text(res.id_kategori);
+                $('#detail_stok').text(res.stok);
+                $('#detail_satuan').text(res.satuan);
+                $('#detail_produksi').text(res.waktu_produksi || '-');
+                $('#detail_expired').text(res.tanggal_exp || '-');
+                $('#detail_deskripsi').text(res.deskripsi || 'Tidak ada deskripsi.');
+                
+                let harga = new Intl.NumberFormat('id-ID').format(res.harga_obat);
+                $('#detail_harga').text(harga);
+                
+                let pathFoto = res.foto ? '/assets/img/obat/' + res.foto : 'https://via.placeholder.com/300';
+                $('#detail_foto').attr('src', pathFoto);
+
+                // Paksa modal muncul
+                $('#modalDetail').modal('show');
+            },
+            error: function() {
+                alert('Data tidak ditemukan atau Route error!');
+            }
+        });
+    });
+});
+</script>
+@endpush

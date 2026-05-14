@@ -35,6 +35,7 @@ class ObatController extends Controller
             'harga_obat'     => $request->harga_obat,
             'satuan'         => $request->satuan,
             'stok'           => $request->stok,
+            'deskripsi'      => $request->deskripsi,
             'tanggal_exp'    => $request->tanggal_exp,
             'waktu_produksi' => $request->waktu_produksi,
         ];
@@ -75,5 +76,17 @@ class ObatController extends Controller
         $obat->delete();
 
         return redirect('/admin/dashboard')->with('success', 'Data obat berhasil dihapus!');
+    }
+    public function show($id)
+    {
+        // Ambil data obat beserta relasi kategorinya (jika ada)
+        $obat = \App\Models\Obat::find($id);
+
+        if ($obat) {
+            // Balikkan berupa JSON, bukan view!
+            return response()->json($obat);
+        }
+
+        return response()->json(['message' => 'Data tidak ditemukan'], 404);
     }
 } 
