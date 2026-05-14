@@ -21,19 +21,7 @@
           </ul>
         </form>
       </nav>
-      <div class="main-sidebar">
-        <aside id="sidebar-wrapper">
-          <div class="sidebar-brand">
-            <a href="#">APOTEK SIS</a>
-          </div>
-          <ul class="sidebar-menu">
-              <li class="menu-header">Menu Utama</li>
-              <li><a class="nav-link" href="#"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
-              <li><a class="nav-link" href="#"><i class="fas fa-pills"></i> <span>Data Obat</span></a></li>
-            </ul>
-        </aside>
-      </div>
-
+    @include('layouts.sidebar')
       <div class="main-content">
         <section class="section">
           <div class="section-header">

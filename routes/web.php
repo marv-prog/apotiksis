@@ -10,10 +10,13 @@ Route::get('/', function () {
 });
 
 // Halaman dashboard untuk Role Admin (Lewat Controller)
-Route::get('/admin', [ObatController::class, 'index']);
+Route::get('/admin/dashboard', [ObatController::class, 'index']);
 
 // Halaman untuk menampilkan form tambah data obat
 Route::get('/admin/obat/create', [ObatController::class, 'create']);
+
+// Halaman Utama Daftar Obat
+Route::get('/admin/obat', [ObatController::class, 'index']);
 
 // Route untuk menyimpan data obat baru
 Route::post('/admin/obat', [ObatController::class, 'store']);
