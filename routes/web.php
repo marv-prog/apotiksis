@@ -6,7 +6,8 @@ use App\Http\Controllers\KategoriController;
 
 // Panggil file landing.blade.php di dalam folder user
 Route::get('/', function () {
-    return view('user.landing');
+    $obat = \App\Models\Obat::all(); // Ambil semua data obat
+    return view('user.landing', compact('obat'));
 });
 
 // Halaman dashboard untuk Role Admin (Lewat Controller)

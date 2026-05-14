@@ -10,9 +10,15 @@ class ObatController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data obat dari database
-        $obats = Obat::all(); 
-        return view('admin.dashboard', compact('obats'));
+        // Ambil data untuk tabel
+        $obat = Obat::all(); 
+        
+        // Ambil data untuk widget kartu
+        $total_obat = Obat::count(); 
+        $stok_limit = Obat::where('stok', '<=', 10)->count();
+
+        // Kirim ke view (sesuaikan folder view kamu, misal 'admin.dashboard')
+        return view('admin.dashboard', compact('obat', 'total_obat', 'stok_limit'));
     }
 
     public function create()
@@ -46,7 +52,7 @@ class ObatController extends Controller
         // 3. Simpan variabel $data tadi ke database
         Obat::create($data);
 
-        return redirect('/admin')->with('success', 'Data obat berhasil disimpan!');
+        return redirect('/admin/dashboard')->with('success', 'Data obat berhasil disimpan!');
     }
         public function edit($id)
     {
@@ -61,13 +67,13 @@ class ObatController extends Controller
         $obat = Obat::findOrFail($id);
         $obat->update($request->all());
 
-        return redirect('/admin')->with('success', 'Data obat berhasil diperbarui!');
+        return redirect('/admin/dashboard')->with('success', 'Data obat berhasil diperbarui!');
     }
     public function destroy($id)
     {
         $obat = Obat::findOrFail($id);
         $obat->delete();
 
-        return redirect('/admin')->with('success', 'Data obat berhasil dihapus!');
+        return redirect('/admin/dashboard')->with('success', 'Data obat berhasil dihapus!');
     }
 } 

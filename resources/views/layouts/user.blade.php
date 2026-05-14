@@ -30,9 +30,11 @@
 
       <div class="main-content">
         <section class="section">
-          <div class="section-body">
-            @yield('content')
-          </div>
+          <div class="main-content">
+            <div class="container mt-5">
+                @yield('content')
+            </div>
+        </div>
         </section>
       </div>
     </div>
