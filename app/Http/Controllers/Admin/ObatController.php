@@ -22,8 +22,8 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
-        // Proses simpan data sesuai entitas lengkap kamu
-        Obat::create([
+        // 1. Definisikan dulu data yang mau disimpan ke dalam variabel $data
+        $data = [
             'nama_obat'      => $request->nama_obat,
             'id_kategori'    => $request->id_kategori,
             'harga_obat'     => $request->harga_obat,
@@ -31,9 +31,21 @@ class ObatController extends Controller
             'stok'           => $request->stok,
             'tanggal_exp'    => $request->tanggal_exp,
             'waktu_produksi' => $request->waktu_produksi,
-        ]);
+        ];
 
-        // Setelah simpan, pindah ke halaman /admin dengan pesan sukses
+        // 2. CEK: Jika ada foto yang diunggah, tambahkan ke dalam variabel $data
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $nama_foto = time() . "_" . $file->getClientOriginalName();
+            $file->move(public_path('assets/img/obat'), $nama_foto);
+            
+            // Masukkan nama file foto ke array data
+            $data['foto'] = $nama_foto;
+        }
+
+        // 3. Simpan variabel $data tadi ke database
+        Obat::create($data);
+
         return redirect('/admin')->with('success', 'Data obat berhasil disimpan!');
     }
         public function edit($id)

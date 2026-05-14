@@ -7,18 +7,22 @@
 
 <div class="section-body">
     <div class="card">
-        <form action="/admin/obat" method="POST">
-            @csrf
-            <div class="card-body">
+                <form action="/admin/obat" method="POST" enctype="multipart/form-data">   
+                @csrf       
+                <div class="card-body">
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label>Nama Obat</label>
                         <input type="text" name="nama_obat" class="form-control" required>
                     </div>
                     <div class="form-group">
+                        <label>Foto Obat</label>
+                        <input type="file" name="foto" class="form-control">
+                        <small class="text-muted">Format: jpg, jpeg, png (Max: 2MB)</small>
+                    </div>
+                      <div class="form-group">
                     <label>Kategori Obat</label>
-                    <select name="id_kategori" class="form-control" required>
-                        <option value="">-- Pilih Kategori --</option>
+                    <select name="id_kategori" class="form-control">
                         <option value="1">Obat Bebas</option>
                         <option value="2">Obat Keras</option>
                         <option value="3">Antibiotik</option>

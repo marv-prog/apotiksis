@@ -53,6 +53,19 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+            <label>Foto Obat (Kosongkan jika tidak ingin diganti)</label>
+            @if($obat->foto)
+                <div class="mb-2">
+                    <img src="{{ asset('assets/img/obat/'.$obat->foto) }}" width="100px" class="img-thumbnail">
+                </div>
+            @endif
+            <input type="file" name="foto" class="form-control">
+        </div>
+             <div class="form-group">
+                        <label>Deskripsi Obat</label>
+                        <textarea name="deskripsi" class="form-control">{{ $obat->deskripsi ?? '' }}</textarea>
+                    </div>
             <div class="card-footer text-right">
                 <a href="/admin" class="btn btn-secondary">Batal</a>
                 <button type="submit" class="btn btn-primary">Update Data</button>

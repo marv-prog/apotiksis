@@ -26,6 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Foto</th>
                                     <th>Nama Obat</th>
                                     <th>Kategori (ID)</th>
                                     <th>Harga</th>
@@ -39,6 +40,14 @@
                                 @forelse($obats as $obat)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        @if($obat->foto)
+                                            <!-- Pastikan foldernya: public/assets/img/obat/ -->
+                                            <img src="{{ asset('assets/img/obat/'.$obat->foto) }}" width="50">
+                                        @else
+                                            <span class="badge badge-secondary">No Image</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $obat->nama_obat }}</td>
                                     <td>
                                         <div class="badge badge-primary">ID: {{ $obat->id_kategori }}</div>

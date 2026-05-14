@@ -15,6 +15,7 @@ class Obat extends Model
     // Ini adalah daftar kolom yang WAJIB ada supaya bisa simpan data
     protected $fillable = [
         'nama_obat', 
+        'foto',
         'id_kategori', 
         'harga_obat', 
         'satuan', 
