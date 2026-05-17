@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ObatController;
 use App\Http\Controllers\KategoriController;
 
 
+
 // Panggil file landing.blade.php di dalam folder user
 Route::get('/', function () {
     $obat = \App\Models\Obat::all(); // Ambil semua data obat
@@ -32,8 +33,8 @@ Route::put('/admin/obat/{id}', [ObatController::class, 'update']);
 // Route untuk menghapus data obat
 Route::delete('/admin/obat/{id}', [ObatController::class, 'destroy']);
 
-// Route untuk halaman kategori
+// Route untuk halaman kategori (Sesuaikan jika KategoriController juga ada di dalam folder Admin)
 Route::get('/admin/kategori', [KategoriController::class, 'index']);
 
-// Sesuaikan dengan group admin kamu jika ada
-Route::get('/admin/obat/{id}', [App\Http\Controllers\ObatController::class, 'show']);
+// Route untuk menampilkan detail obat (Sudah diarahkan ke struktur class yang sama)
+Route::get('/admin/obat/{id}', [ObatController::class, 'show']);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Obat; // <--- WAJIB ADA INI
+use App\Models\Obat; 
 
 class ObatController extends Controller
 {
@@ -55,7 +55,8 @@ class ObatController extends Controller
 
         return redirect('/admin/dashboard')->with('success', 'Data obat berhasil disimpan!');
     }
-        public function edit($id)
+
+    public function edit($id)
     {
         // Cari data obat berdasarkan ID
         $obat = Obat::findOrFail($id);
@@ -79,14 +80,14 @@ class ObatController extends Controller
     }
     public function show($id)
     {
-        // Ambil data obat beserta relasi kategorinya (jika ada)
-        $obat = \App\Models\Obat::find($id);
+        // Mengambil data obat berdasarkan ID menggunakan model yang sudah di-import di atas
+        $obat = Obat::find($id);
 
         if ($obat) {
-            // Balikkan berupa JSON, bukan view!
+            // Mengembalikan respon berupa data JSON untuk kebutuhan AJAX detail
             return response()->json($obat);
         }
 
         return response()->json(['message' => 'Data tidak ditemukan'], 404);
     }
-} 
+}

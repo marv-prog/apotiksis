@@ -9,7 +9,6 @@
     </div>
 
     <div class="section-body">
-        <!-- WIDGET STATISTIK -->
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
@@ -40,7 +39,6 @@
             </div>
         </div>
 
-        <!-- TABEL DATA OBAT -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -84,17 +82,24 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <div class="d-flex" style="gap: 5px;">
-                                                <button type="button" class="btn btn-info btn-sm btn-detail" data-id="{{ $o->id }}">
-                                                    <i class="fas fa-eye"></i>
+                                        <div class="d-flex" style="gap: 5px;">
+                                            <button type="button" class="btn btn-info btn-sm btn-detail" data-id="{{ $o->id_obat }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            
+                                            <a href="/admin/obat/{{ $o->id_obat }}/edit" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            
+                                            <form action="{{ url('/admin/obat/' . $o->id_obat) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
                                                 </button>
-                                                <a href="/admin/obat/{{ $o->id }}/edit" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                <form action="/admin/obat/{{ $o->id }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                            </form>
+                                        </div>
+                                    </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -107,7 +112,6 @@
     </div>
 </section>
 
-<!-- MODAL DETAIL (Diletakkan di luar Section Body agar tidak tertutup) -->
 <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" style="z-index: 1050;">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -145,46 +149,75 @@
 </div>
 @endsection
 
-<!-- SCRIPT HARUS DI DALAM PUSH AGAR JQUERY TERBACA SETELAH HALAMAN SIAP -->
 @push('scripts')
 <script>
-$(document).ready(function() {
-    // Gunakan Event Delegation
-    $(document).on('click', '.btn-detail', function(e) {
+document.addEventListener('click', function (e) {
+    const button = e.target.closest('.btn-detail');
+    
+    if (button) {
         e.preventDefault();
-        var id = $(this).data('id');
+        const id = button.getAttribute('data-id');
         
-        // Reset modal ke kondisi loading
-        $('#detail_nama').text('Loading...');
-        $('#detail_foto').attr('src', '');
+        document.getElementById('detail_nama').innerText = 'Loading...';
+        document.getElementById('detail_foto').setAttribute('src', '');
         
-        $.ajax({
-            url: '/admin/obat/' + id,
-            type: 'GET',
-            dataType: 'json',
-            success: function(res) {
-                $('#detail_nama').text(res.nama_obat);
-                $('#detail_kategori').text(res.id_kategori);
-                $('#detail_stok').text(res.stok);
-                $('#detail_satuan').text(res.satuan);
-                $('#detail_produksi').text(res.waktu_produksi || '-');
-                $('#detail_expired').text(res.tanggal_exp || '-');
-                $('#detail_deskripsi').text(res.deskripsi || 'Tidak ada deskripsi.');
-                
-                let harga = new Intl.NumberFormat('id-ID').format(res.harga_obat);
-                $('#detail_harga').text(harga);
-                
-                let pathFoto = res.foto ? '/assets/img/obat/' + res.foto : 'https://via.placeholder.com/300';
-                $('#detail_foto').attr('src', pathFoto);
-
-                // Paksa modal muncul
-                $('#modalDetail').modal('show');
-            },
-            error: function() {
-                alert('Data tidak ditemukan atau Route error!');
+        fetch('/admin/obat/' + id, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
             }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(res => {
+            document.getElementById('detail_nama').innerText = res.nama_obat;
+            document.getElementById('detail_kategori').innerText = res.id_kategori;
+            document.getElementById('detail_stok').innerText = res.stok;
+            document.getElementById('detail_satuan').innerText = res.satuan;
+            document.getElementById('detail_produksi').innerText = res.waktu_produksi || '-';
+            document.getElementById('detail_expired').innerText = res.tanggal_exp || '-';
+            document.getElementById('detail_deskripsi').innerText = res.deskripsi || 'Tidak ada deskripsi.';
+            
+            let harga = new Intl.NumberFormat('id-ID').format(res.harga_obat);
+            document.getElementById('detail_harga').innerText = harga;
+            
+            let pathFoto = res.foto ? '/assets/img/obat/' + res.foto : 'https://via.placeholder.com/300';
+            document.getElementById('detail_foto').setAttribute('src', pathFoto);
+
+            if (typeof $ !== 'undefined') {
+                $('#modalDetail').modal('show');
+            } else {
+                document.getElementById('modalDetail').classList.add('show');
+                document.getElementById('modalDetail').style.display = 'block';
+                document.body.classList.add('modal-open');
+                
+                let backdrop = document.createElement('div');
+                backdrop.className = 'modal-backdrop fade show';
+                backdrop.id = 'manual-backdrop';
+                document.body.appendChild(backdrop);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Gagal mengambil data! Cek apakah route /admin/obat/' + id + ' sudah benar.');
         });
-    });
+    }
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-dismiss="modal"]')) {
+        const modal = document.getElementById('modalDetail');
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        const backdrop = document.getElementById('manual-backdrop');
+        if (backdrop) backdrop.remove();
+    }
 });
 </script>
 @endpush
