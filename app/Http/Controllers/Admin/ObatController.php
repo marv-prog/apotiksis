@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Obat; 
 
@@ -17,13 +18,17 @@ class ObatController extends Controller
         $total_obat = Obat::count(); 
         $stok_limit = Obat::where('stok', '<=', 10)->count();
 
-        // Kirim ke view (sesuaikan folder view kamu, misal 'admin.dashboard')
+        // Kirim ke view dashboard
         return view('admin.dashboard', compact('obat', 'total_obat', 'stok_limit'));
     }
 
     public function create()
     {
-        return view('admin.create');
+        // Ambil semua data kategori dari phpMyAdmin
+        $categories = Kategori::all(); 
+
+        // FIX: Diubah dari 'admin.obat.create' menjadi 'admin.create' sesuai folder aslimu
+        return view('admin.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -58,9 +63,11 @@ class ObatController extends Controller
 
     public function edit($id)
     {
-        // Cari data obat berdasarkan ID
         $obat = Obat::findOrFail($id);
-        return view('admin.edit', compact('obat'));
+        $categories = Kategori::all(); 
+        
+        // FIX: Diubah dari 'admin.obat.edit' menjadi 'admin.edit' agar tidak tersesat
+        return view('admin.edit', compact('obat', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -71,6 +78,7 @@ class ObatController extends Controller
 
         return redirect('/admin/dashboard')->with('success', 'Data obat berhasil diperbarui!');
     }
+
     public function destroy($id)
     {
         $obat = Obat::findOrFail($id);
@@ -78,6 +86,7 @@ class ObatController extends Controller
 
         return redirect('/admin/dashboard')->with('success', 'Data obat berhasil dihapus!');
     }
+
     public function show($id)
     {
         // Mengambil data obat berdasarkan ID menggunakan model yang sudah di-import di atas

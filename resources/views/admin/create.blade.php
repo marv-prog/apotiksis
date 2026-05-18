@@ -22,13 +22,16 @@
                         <small class="text-muted d-block mt-1">Format: jpg, jpeg, png (Max: 2MB)</small>
                     </div>
                     <div class="form-group col-md-3">
-                        <label class="font-weight-bold"><i class="fas fa-tags text-muted mr-1"></i> Kategori Obat</label>
-                        <select name="id_kategori" class="form-control">
-                            <option value="1">Obat Bebas</option>
-                            <option value="2">Obat Keras</option>
-                            <option value="3">Antibiotik</option>
-                        </select>
-                    </div>
+                    <label class="font-weight-bold"><i class="fas fa-tags text-muted mr-1"></i> Kategori Obat</label>
+                    <select name="id_kategori" class="form-control" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id_kategori }}">{{ $cat->nama_kategori }}</option>
+                        @endforeach
+                        
+                    </select>
+                </div>
                 </div>
 
                 <div class="row">

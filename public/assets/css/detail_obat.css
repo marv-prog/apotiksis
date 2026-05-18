@@ -1,0 +1,79 @@
+.breadcrumb-mandjur {
+    background: transparent;
+    padding: 0;
+    font-size: 13px;
+}
+.breadcrumb-mandjur a {
+    color: #006673;
+    text-decoration: none;
+}
+.product-detail-title {
+    color: #2d5766;
+    font-weight: 700;
+    font-size: 28px;
+}
+.product-brand {
+    color: #7a7a7a;
+    font-size: 14px;
+}
+.price-box {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2d5766;
+}
+.status-stok {
+    font-size: 13px;
+    color: #2b7a4b;
+    font-weight: 600;
+    background-color: #e8f5e9;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+.status-stok.habis {
+    color: #b71c1c;
+    background-color: #ffebee;
+}
+.action-box {
+    border: 1px solid #eef2f2;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+.btn-mandjur-primary {
+    background-color: #325a66;
+    color: white;
+    font-weight: 700;
+    border: none;
+    transition: background 0.2s;
+}
+.btn-mandjur-primary:hover {
+    background-color: #213e46;
+    color: white;
+}
+.btn-mandjur-secondary {
+    background-color: #a5d3d1;
+    color: #213e46;
+    font-weight: 700;
+    border: none;
+    transition: background 0.2s;
+}
+.btn-mandjur-secondary:hover {
+    background-color: #8cb8b6;
+    color: #213e46;
+}
+.section-info-title {
+    color: #2d5766;
+    font-weight: 700;
+    font-size: 18px;
+    border-bottom: 2px solid #eef2f2;
+    padding-bottom: 8px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+}
+.info-content {
+    font-size: 14px;
+    color: #4a4a4a;
+    line-height: 1.6;
+}

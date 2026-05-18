@@ -1,0 +1,63 @@
+/* public/assets/css/pembayaran.css */
+
+.bank-option {
+    border: 2px solid #eef2f2;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.bank-option:hover {
+    border-color: #325a66;
+    background-color: #f5f9f9;
+}
+
+/* Style saat radio button dipilih */
+.bank-input:checked + .bank-label .bank-option {
+    border-color: #e6005c;
+    background-color: #fff5f8;
+}
+
+.stepper-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #8a9999;
+    font-weight: 500;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #cbdcdc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.step-item.active {
+    color: #e6005c;
+    font-weight: 600;
+}
+
+.step-item.active .step-number {
+    border-color: #e6005c;
+}
+
+.step-line {
+    width: 60px;
+    height: 1px;
+    border-top: 1px dotted #cbdcdc;
+}

@@ -1,0 +1,43 @@
+.stepper-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #8a9999;
+    font-weight: 500;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #cbdcdc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Style khusus saat langkah tersebut aktif (Keranjang) */
+.step-item.active {
+    color: #e6005c; /* Warna pink/merah sesuai gambar */
+    font-weight: 600;
+}
+
+.step-item.active .step-number {
+    border-color: #e6005c;
+}
+
+.step-line {
+    width: 60px;
+    height: 1px;
+    border-top: 1px dotted #cbdcdc;
+}

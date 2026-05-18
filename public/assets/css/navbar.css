@@ -1,0 +1,120 @@
+body {
+    background-color: #f8fafc;
+}
+
+/* HEADER UTAMA */
+.bg-mandjur {
+    background-color: #a4d4d4 !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.text-mandjur {
+    color: #2d5766 !important;
+}
+
+/* KOLOM PENCARIAN */
+.search-input-custom {
+    border-radius: 8px 0 0 8px !important;
+    height: 46px !important;
+    font-size: 14px;
+    padding-left: 20px !important;
+}
+
+.btn-mandjur-search {
+    background-color: #3b6375 !important;
+    color: white !important;
+    border: none;
+    border-radius: 0 8px 8px 0 !important;
+    height: 46px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    transition: background-color 0.2s;
+}
+
+.btn-mandjur-search:hover {
+    background-color: #2d5766 !important;
+    color: white !important;
+}
+
+/* MENU KATEGORI */
+.nav-kategori-container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.nav-kategori .nav-link {
+    color: #4a6b75 !important;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+    padding: 14px 22px !important;
+    border-bottom: 3px solid transparent;
+}
+
+.nav-kategori .nav-link:hover {
+    color: #e6005c !important;
+    border-bottom: 3px solid #e6005c;
+    background-color: #fff5f8;
+}
+
+/* LINK IKON NAVBAR */
+.nav-icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.nav-icon-box:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* BADGE ANGKA KERANJANG */
+.cart-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-badge-custom {
+    font-size: 10px;
+    font-weight: bold;
+    top: -4px;
+    right: -6px;
+    padding: 4px 7px;
+    background-color: #e6005c !important;
+    color: white !important;
+    border: 2px solid #a4d4d4;
+}
+
+.main-wrapper {
+    padding: 0 !important;
+}
+.main-content {
+    padding: 40px 0 !important;
+}
+
+/* LOGO */
+.navbar-brand-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+    height: 46px;
+}
+
+.navbar-brand-logo img {
+    max-height: 110px;
+    width: auto;
+    object-fit: contain;
+    margin-top: -2px;
+    transform: scale(1.4);
+    transition: transform 0.2s;
+}
+
+.navbar-brand-logo:hover img {
+    transform: scale(1.45);
+}
