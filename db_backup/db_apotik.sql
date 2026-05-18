@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 14, 2026 at 07:14 AM
+-- Generation Time: May 18, 2026 at 03:18 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.21
 
@@ -89,8 +89,19 @@ CREATE TABLE `kategoris` (
 --
 
 INSERT INTO `kategoris` (`id_kategori`, `nama_kategori`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(1, '', NULL, NULL, NULL),
-(2, 'Obat Keras', NULL, NULL, NULL);
+(1, 'Obat Bebas', NULL, NULL, NULL),
+(2, 'Obat Keras', NULL, NULL, NULL),
+(3, 'Antibiotik\r\n', NULL, NULL, NULL),
+(4, 'OTC', NULL, NULL, NULL),
+(5, 'Pil KB & Hormonal', NULL, NULL, NULL),
+(6, 'Vitamin & Suplement', NULL, NULL, NULL),
+(7, 'Flu & Batuk', NULL, NULL, NULL),
+(8, 'Obat Herbal', NULL, NULL, NULL),
+(9, 'Obat Diabetes', NULL, NULL, NULL),
+(10, 'Obat Hipertensi', NULL, NULL, NULL),
+(11, 'Obat Kolesterol', NULL, NULL, NULL),
+(12, 'Kesehatan Seksual', NULL, NULL, NULL),
+(13, 'Kecantikan & Keperawatan Diri', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +130,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2026_05_08_163305_create_obats_table', 2),
 (11, '2026_05_08_163558_create_transaksis_table', 3),
 (12, '2026_05_08_163612_create_detail_transaksis_table', 3),
-(13, '2026_05_11_020334_add_deskripsi_to_obats_table', 4);
+(13, '2026_05_11_020334_add_deskripsi_to_obats_table', 4),
+(14, '2026_05_14_151852_add_foto_to_obats_table', 5);
 
 -- --------------------------------------------------------
 
@@ -154,6 +166,7 @@ CREATE TABLE `model_has_roles` (
 CREATE TABLE `obats` (
   `id_obat` bigint UNSIGNED NOT NULL,
   `nama_obat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deskripsi` text COLLATE utf8mb4_unicode_ci,
   `id_kategori` bigint UNSIGNED NOT NULL,
   `harga_obat` bigint NOT NULL,
@@ -169,8 +182,12 @@ CREATE TABLE `obats` (
 -- Dumping data for table `obats`
 --
 
-INSERT INTO `obats` (`id_obat`, `nama_obat`, `deskripsi`, `id_kategori`, `harga_obat`, `satuan`, `stok`, `tanggal_exp`, `waktu_produksi`, `created_at`, `updated_at`) VALUES
-(4, 'Sirup ABCD', NULL, 2, 25000, 'Tablet', 469, '2026-05-22', '2026-05-04', '2026-05-09 13:56:58', '2026-05-10 18:53:44');
+INSERT INTO `obats` (`id_obat`, `nama_obat`, `foto`, `deskripsi`, `id_kategori`, `harga_obat`, `satuan`, `stok`, `tanggal_exp`, `waktu_produksi`, `created_at`, `updated_at`) VALUES
+(10, 'IKals', '1778754543_1778749862_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 80000, 'tablet', 760, '2026-05-31', '2026-05-01', '2026-05-14 10:29:03', '2026-05-14 10:29:03'),
+(11, 'obat kehidupan', '1778754949_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 36000, 'Tablet', 560, '2026-05-31', '2026-05-18', '2026-05-14 10:35:49', '2026-05-14 10:35:49'),
+(12, 'Obat Pusinh', '1779035222_WIN_20260422_09_16_29_Pro.jpg', 'ini obat bikin kamu sigma boys', 1, 34000, 'Tablet', 12, '2026-05-01', '2026-04-17', '2026-05-17 16:27:02', '2026-05-17 16:27:02'),
+(13, 'obat obatan', '1779085106_Screenshot 2026-03-01 030418.png', 'obat batyuk uhuk uhuk', 7, 24000, 'Botol', 4, '2026-05-31', '2026-05-01', '2026-05-18 06:18:26', '2026-05-18 06:18:26'),
+(14, 'Obat Hotspot nge', '1779089489_WIN_20250108_09_02_36_Pro.jpg', 'obat ini bikin ada anomali hotspot dong nge buat buka wa doang, alias buka seluruh apk nasa ge kalah file filenya', 13, 300000, 'Tablet', 9, '2026-06-28', '2026-05-01', '2026-05-18 07:31:29', '2026-05-18 07:31:29');
 
 -- --------------------------------------------------------
 
@@ -411,19 +428,19 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `kategoris`
 --
 ALTER TABLE `kategoris`
-  MODIFY `id_kategori` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kategori` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `obats`
 --
 ALTER TABLE `obats`
-  MODIFY `id_obat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_obat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -447,7 +464,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
