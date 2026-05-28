@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ObatController;
+use App\Http\Controllers\Admin\AdminController; // <-- 1. Diubah ke folder Admin baru sesuai request-mu
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\User\CustomerController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest; // Bawaan Laravel untuk verifikasi email
+use Illuminate\Http\Request;
 
 // ==========================================
 //          ROUTE SISI USER / PEMBELI
@@ -43,16 +46,44 @@ Route::post('/keranjang/checkout', [CustomerController::class, 'checkoutTransaks
 // >>> DI SINI RUTE BARU DETAIL NOTA TRANSAKSI NYA <<<
 Route::get('/keranjang/detail-transaksi/{id}', [CustomerController::class, 'detailTransaksi'])->name('user.keranjang.detail_transaksi');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ==========================================
-//          ROUTE SISI ADMIN (CRUD OBAT)
+//          ROUTE AUTENTIKASI (LOGIN & REGISTER)
+// ==========================================
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register'); // <-- Tambahan rute buka form daftar
+Route::post('/register', [AuthController::class, 'register'])->name('register');   // <-- Tambahan rute proses simpan daftar
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+// ==========================================
+//       ROUTE VERIFIKASI EMAIL ASLI
+// ==========================================
+// Tampilan halaman peringatan "Silakan cek inbox email kamu"
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+// Proses otomatis saat user mengklik link verifikasi di dalam emailnya
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('user.landing')->with('success', 'Email berhasil diverifikasi!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Aksi tombol untuk kirim ulang email verifikasi jika tidak masuk
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Link verifikasi baru telah dikirim!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+// ==========================================
+//          ROUTE SISI ADMIN 
 // ==========================================
 
 // Halaman dashboard untuk Role Admin
-Route::get('/admin/dashboard', [ObatController::class, 'index']);
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
 // Halaman Utama Daftar Obat di Admin
 Route::get('/admin/obat', [ObatController::class, 'index']);

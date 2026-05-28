@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 18, 2026 at 03:18 PM
+-- Generation Time: May 28, 2026 at 06:59 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.21
 
@@ -31,9 +31,7 @@ CREATE TABLE `detail_transaksis` (
   `id_detail` bigint UNSIGNED NOT NULL,
   `id_transaksi` bigint UNSIGNED NOT NULL,
   `id_obat` bigint UNSIGNED NOT NULL,
-  `jumlah` int NOT NULL,
-  `harga` bigint NOT NULL,
-  `total` bigint NOT NULL,
+  `quantity` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -122,7 +120,6 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_100000_create_password_resets_table', 1),
 (2, '2019_08_19_000000_create_failed_jobs_table', 1),
-(3, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (4, '2022_02_25_000000_create_jobs_table', 1),
 (5, '2022_02_25_000001_create_users_table', 1),
 (6, '2022_02_25_000002_create_permission_tables', 1),
@@ -131,31 +128,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2026_05_08_163558_create_transaksis_table', 3),
 (12, '2026_05_08_163612_create_detail_transaksis_table', 3),
 (13, '2026_05_11_020334_add_deskripsi_to_obats_table', 4),
-(14, '2026_05_14_151852_add_foto_to_obats_table', 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `model_has_permissions`
---
-
-CREATE TABLE `model_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `model_has_roles`
---
-
-CREATE TABLE `model_has_roles` (
-  `role_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(14, '2026_05_14_151852_add_foto_to_obats_table', 5),
+(15, '2019_12_14_000001_create_personal_access_tokens_table', 6);
 
 -- --------------------------------------------------------
 
@@ -186,7 +160,6 @@ INSERT INTO `obats` (`id_obat`, `nama_obat`, `foto`, `deskripsi`, `id_kategori`,
 (10, 'IKals', '1778754543_1778749862_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 80000, 'tablet', 760, '2026-05-31', '2026-05-01', '2026-05-14 10:29:03', '2026-05-14 10:29:03'),
 (11, 'obat kehidupan', '1778754949_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 36000, 'Tablet', 560, '2026-05-31', '2026-05-18', '2026-05-14 10:35:49', '2026-05-14 10:35:49'),
 (12, 'Obat Pusinh', '1779035222_WIN_20260422_09_16_29_Pro.jpg', 'ini obat bikin kamu sigma boys', 1, 34000, 'Tablet', 12, '2026-05-01', '2026-04-17', '2026-05-17 16:27:02', '2026-05-17 16:27:02'),
-(13, 'obat obatan', '1779085106_Screenshot 2026-03-01 030418.png', 'obat batyuk uhuk uhuk', 7, 24000, 'Botol', 4, '2026-05-31', '2026-05-01', '2026-05-18 06:18:26', '2026-05-18 06:18:26'),
 (14, 'Obat Hotspot nge', '1779089489_WIN_20250108_09_02_36_Pro.jpg', 'obat ini bikin ada anomali hotspot dong nge buat buka wa doang, alias buka seluruh apk nasa ge kalah file filenya', 13, 300000, 'Tablet', 9, '2026-06-28', '2026-05-01', '2026-05-18 07:31:29', '2026-05-18 07:31:29');
 
 -- --------------------------------------------------------
@@ -199,20 +172,6 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `permissions`
---
-
-CREATE TABLE `permissions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -236,41 +195,14 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
---
-
-CREATE TABLE `roles` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `role_has_permissions`
---
-
-CREATE TABLE `role_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
-  `role_id` bigint UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `transaksis`
 --
 
 CREATE TABLE `transaksis` (
   `id_transaksi` bigint UNSIGNED NOT NULL,
-  `tanggal_transaksi` datetime NOT NULL,
   `id_user` bigint UNSIGNED NOT NULL,
-  `total_harga` bigint NOT NULL,
-  `bayar` bigint NOT NULL,
-  `kembalian` bigint NOT NULL,
+  `total_harga` int NOT NULL,
+  `tanggal` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -282,16 +214,26 @@ CREATE TABLE `transaksis` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id_user` bigint UNSIGNED NOT NULL,
+  `nama_user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `no_hp` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `nama_user`, `username`, `email`, `email_verified_at`, `password`, `role`, `no_hp`, `alamat`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin Apotek', 'admin_sis', 'admin@mail.com', '2026-05-28 18:23:10', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, NULL, NULL, '2026-05-28 18:23:10', '2026-05-28 18:23:10');
 
 --
 -- Indexes for dumped tables
@@ -302,8 +244,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `detail_transaksis`
   ADD PRIMARY KEY (`id_detail`),
-  ADD KEY `detail_transaksis_id_transaksi_foreign` (`id_transaksi`),
-  ADD KEY `detail_transaksis_id_obat_foreign` (`id_obat`);
+  ADD KEY `id_transaksi` (`id_transaksi`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -332,20 +273,6 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `model_has_permissions`
---
-ALTER TABLE `model_has_permissions`
-  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
-  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
-
---
--- Indexes for table `model_has_roles`
---
-ALTER TABLE `model_has_roles`
-  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
-  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
-
---
 -- Indexes for table `obats`
 --
 ALTER TABLE `obats`
@@ -359,13 +286,6 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `permissions`
---
-ALTER TABLE `permissions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
-
---
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -374,33 +294,19 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
-
---
--- Indexes for table `role_has_permissions`
---
-ALTER TABLE `role_has_permissions`
-  ADD PRIMARY KEY (`permission_id`,`role_id`),
-  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
-
---
 -- Indexes for table `transaksis`
 --
 ALTER TABLE `transaksis`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `transaksis_id_user_foreign` (`id_user`);
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_username_unique` (`username`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -434,7 +340,7 @@ ALTER TABLE `kategoris`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `obats`
@@ -443,34 +349,22 @@ ALTER TABLE `obats`
   MODIFY `id_obat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `permissions`
---
-ALTER TABLE `permissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -480,20 +374,7 @@ ALTER TABLE `users`
 -- Constraints for table `detail_transaksis`
 --
 ALTER TABLE `detail_transaksis`
-  ADD CONSTRAINT `detail_transaksis_id_obat_foreign` FOREIGN KEY (`id_obat`) REFERENCES `obats` (`id_obat`),
-  ADD CONSTRAINT `detail_transaksis_id_transaksi_foreign` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksis` (`id_transaksi`) ON DELETE CASCADE;
-
---
--- Constraints for table `model_has_permissions`
---
-ALTER TABLE `model_has_permissions`
-  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `model_has_roles`
---
-ALTER TABLE `model_has_roles`
-  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `detail_transaksis_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksis` (`id_transaksi`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `obats`
@@ -502,17 +383,10 @@ ALTER TABLE `obats`
   ADD CONSTRAINT `obats_id_kategori_foreign` FOREIGN KEY (`id_kategori`) REFERENCES `kategoris` (`id_kategori`) ON DELETE CASCADE;
 
 --
--- Constraints for table `role_has_permissions`
---
-ALTER TABLE `role_has_permissions`
-  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  ADD CONSTRAINT `transaksis_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `transaksis_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

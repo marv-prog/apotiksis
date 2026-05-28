@@ -2,50 +2,32 @@
 
 namespace App\Models;
 
-use App\Infrastructure\Contracts\Auth\MustVerifyEmail;
-use App\Infrastructure\Foundation\Auth\User as Authenticatable;
+// PASTIKAN BARIS INI TEPAT MENGGUNAKAN BAWAAN ASLI LARAVEL:
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-/**
- * @method static \Database\Factories\UserFactory<static> factory(callable|array|int|null $count = null, callable|array $state = []) Get a new factory instance for the model.
- */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,
-        Concerns\User\Attribute,
-        Concerns\User\Event,
-        Concerns\User\Relation;
+    use HasFactory, Notifiable;
 
-    /**
-     * {@inheritDoc}
-     *
-     * @var array<int, string>
-     */
+    // Menandakan Primary Key tabel kita namanya id_user, bukan id
+    protected $primaryKey = 'id_user';
+
+    // Kolom yang boleh diisi (Sinkron dengan gambar entitas e558e6)
     protected $fillable = [
+        'nama_user',
         'username',
-        'name',
         'email',
         'password',
+        'role',
+        'no_hp',
+        'alamat',
     ];
 
-    /**
-     * {@inheritDoc}
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * {@inheritDoc}
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 }

@@ -36,6 +36,15 @@
                     <i class="fas fa-file-invoice-dollar"></i> <span>Transaksi</span>
                 </a>
             </li>
+            <li class="nav-item mt-4">
+                <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
+                    @csrf
+                </form>
+                <a href="#" class="nav-link text-danger font-weight-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="nav-icon fas fa-sign-out-alt mr-2"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
         </ul>
         </aside>
       </div>
