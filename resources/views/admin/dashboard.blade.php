@@ -24,7 +24,7 @@
                     <div class="card-icon bg-warning"><i class="fas fa-exclamation-triangle"></i></div>
                     <div class="card-wrap">
                         <div class="card-header"><h4>Stok < 10</h4></div>
-                        <div class="card-body">{{ count($stok_limit) }}</div>
+                        <div class="card-body">{{ $total_obat }}</div>
                     </div>
                 </div>
             </div>

@@ -1,99 +1,18 @@
 @extends('layouts.user')
 
 @section('content')
-<style>
-    .banner-welcome {
-        background: linear-gradient(135deg, #a4d4d4 0%, #cbdcdc 100%) !important;
-        border-radius: 12px;
-        padding: 40px;
-        border: none !important;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apotek Sis - Katalog</title>
     
-    .mandjur-style-card {
-        transition: transform 0.2s ease-in-out;
-    }
-    .mandjur-style-card:hover {
-        transform: translateY(-4px);
-    }
-
-    /* CSS MENU KATEGORI GESER DRAG MOUSE */
-    .category-section-title {
-        color: #2d5766;
-        font-weight: 700;
-        font-size: 22px;
-    }
-    .scroll-category-container {
-        display: flex !important;
-        flex-wrap: nowrap !important; 
-        overflow-x: auto !important;   
-        width: 100% !important;
-        padding-bottom: 15px;
-        padding-top: 5px;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        cursor: grab; 
-    }
-    .scroll-category-container:active {
-        cursor: grabbing; 
-    }
-    .scroll-category-container::-webkit-scrollbar {
-        height: 5px;
-    }
-    .scroll-category-container::-webkit-scrollbar-thumb {
-        background: #cbdcdc;
-        border-radius: 10px;
-    }
-    .category-slider-item {
-        flex: 0 0 130px !important; 
-        width: 130px !important;
-        text-align: center;
-        text-decoration: none !important;
-        margin-right: 15px;         
-        transition: transform 0.2s;
-        user-select: none; 
-    }
-    .category-slider-item:hover {
-        transform: translateY(-4px);
-    }
-    .category-circle {
-        width: 70px;
-        height: 70px;
-        background-color: #006673;  
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 10px auto;
-        box-shadow: 0 4px 10px rgba(0, 102, 115, 0.15);
-    }
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     
-    /* Highlight kategori yang sedang aktif */
-    .category-slider-item.active .category-circle {
-        background-color: #2d5766;
-        box-shadow: 0 4px 12px rgba(45, 87, 102, 0.4);
-        border: 2px solid #ffffff;
-    }
-
-    .category-slider-item:hover .category-circle {
-        background-color: #004d57;
-    }
-    .category-circle i {
-        color: #ffffff;
-        font-size: 24px;
-    }
-    .category-name {
-        color: #006673;
-        font-weight: 600;
-        font-size: 13px;
-        white-space: normal !important; 
-        display: block;
-        line-height: 1.2;
-    }
-    .category-slider-item.active .category-name {
-        font-weight: 700;
-        color: #2d5766;
-    }
-</style>
+    <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}">
+</head>
 
 <div class="row mt-2">
     <div class="col-12 mb-4">

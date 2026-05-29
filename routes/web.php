@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ObatController;
-use App\Http\Controllers\Admin\AdminController; // <-- 1. Diubah ke folder Admin baru sesuai request-mu
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\User\CustomerController;
 use App\Http\Controllers\AuthController;
@@ -105,6 +106,10 @@ Route::delete('/admin/obat/{id}', [ObatController::class, 'destroy']);
 
 // Route untuk menampilkan detail obat di sisi admin
 Route::get('/admin/obat/{id}', [ObatController::class, 'show']);
+
+// --- FIX: Rute Data User sekarang menggunakan URL /admin/user dan nama rute admin.user.---
+Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+Route::delete('/admin/user/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.destroy');
 
 
 // ==========================================

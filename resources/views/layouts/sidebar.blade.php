@@ -29,7 +29,11 @@
                     </li>
                 </ul>
             </li>
-
+            <li class="{{ Request::routeIs('admin.user.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="fas fa-users"></i> <span>Data User</span>
+                </a>
+            </li>
             <li class="menu-header">Laporan</li>
             <li class="{{ Request::is('admin/transaksi*') ? 'active' : '' }}">
                 <a class="nav-link" href="#">
