@@ -9,8 +9,8 @@
         <div class="col-md-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0 bg-transparent" style="font-size: 14px;">
-                    <li class="breadcrumb-item"><a href="{{ route('user.landing') }}" style="color: #e6005c; text-decoration: none;">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.keranjang.index') }}" style="color: #e6005c; text-decoration: none;">Keranjang</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.landing') }}" style="color: #2d5766; text-decoration: none;">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.keranjang.index') }}" style="color: #2d5766; text-decoration: none;">Keranjang</a></li>
                     <li class="breadcrumb-item active" aria-current="page" style="color: #2d5766;">Pembayaran</li>
                 </ol>
             </nav>
@@ -47,12 +47,15 @@
                     @csrf
                     
                     <div class="position-relative mb-3">
-                        <input type="radio" name="bank" id="payCOD" value="cod" class="d-none bank-input" checked>
+                        <input type="radio" name="bank" id="payCOD" value="COD" class="d-none bank-input" checked>
                         <label for="payCOD" class="w-100 m-0 bank-label">
                             <div class="bank-option d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-money-bill-wave text-success fa-lg justify-content-center" style="width: 30px;"></i>
-                                    <span class="font-weight-bold ml-2" style="color: #2d5766; font-size: 16px;">Cash on Delivery (COD)</span>
+                                    <div>
+                                        <span class="font-weight-bold ml-2" style="color: #2d5766; font-size: 16px; display: block;">Cash on Delivery (COD)</span>
+                                        <small class="text-muted ml-2">Bayar tunai di tempat saat kurir menyerahkan obat.</small>
+                                    </div>
                                 </div>
                                 <i class="fas fa-chevron-right text-muted"></i>
                             </div>
@@ -60,25 +63,15 @@
                     </div>
 
                     <div class="position-relative mb-3">
-                        <input type="radio" name="bank" id="payToko" value="bayar_di_toko" class="d-none bank-input">
-                        <label for="payToko" class="w-100 m-0 bank-label">
-                            <div class="bank-option d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-store-alt text-primary fa-lg justify-content-center" style="width: 30px;"></i>
-                                    <span class="font-weight-bold ml-2" style="color: #2d5766; font-size: 16px;">Bayar Langsung di Toko (Apotek)</span>
-                                </div>
-                                <i class="fas fa-chevron-right text-muted"></i>
-                            </div>
-                        </label>
-                    </div>
-
-                    <div class="position-relative mb-3">
-                        <input type="radio" name="bank" id="payQRIS" value="qris" class="d-none bank-input">
+                        <input type="radio" name="bank" id="payQRIS" value="QRIS" class="d-none bank-input">
                         <label for="payQRIS" class="w-100 m-0 bank-label">
                             <div class="bank-option d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-qrcode text-danger fa-lg justify-content-center" style="width: 30px;"></i>
-                                    <span class="font-weight-bold ml-2" style="color: #2d5766; font-size: 16px;">QRIS (E-Wallet Otomatis)</span>
+                                    <div>
+                                        <span class="font-weight-bold ml-2" style="color: #2d5766; font-size: 16px; display: block;">QRIS (E-Wallet Otomatis)</span>
+                                        <small class="text-muted ml-2">Tampilkan e-barcode untuk scan via GoPay, OVO, Dana, LinkAja, atau m-Banking.</small>
+                                    </div>
                                 </div>
                                 <i class="fas fa-chevron-right text-muted"></i>
                             </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apotek Sis - Katalog</title>
+    <title>APOTIKSIS - Katalog</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -19,7 +19,7 @@
         <div class="hero banner-welcome text-dark shadow-sm">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h1 class="font-weight-bold text-mandjur mb-2" style="font-size: 28px; color: #2d5766;">Selamat Datang di Apotek Sis</h1>
+                    <h1 class="font-weight-bold text-mandjur mb-2" style="font-size: 28px; color: #2d5766;">Selamat Datang di APOTIKSIS</h1>
                     <p class="lead text-secondary mb-0" style="font-size: 16px;">Solusi kesehatan lengkap, aman, asli, dan terpercaya untuk memenuhi kebutuhan medis Anda dan keluarga.</p>
                 </div>
                 <div class="col-md-4 d-none d-md-block text-right" style="font-size: 70px; opacity: 0.15; color: #2d5766;">

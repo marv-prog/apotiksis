@@ -64,8 +64,9 @@
                 </div>
             </div>
 
-                <form action="{{ route('user.keranjang.tambah', $o->getKey()) }}" method="POST" class="action-box mt-4">                
-                    @csrf <h5 class="font-weight-bold mb-3" style="color: #2d5766; font-size: 15px;">Jumlah Pembelian</h5>
+            <form action="{{ route('user.keranjang.tambah', $o->getKey()) }}" method="POST" class="action-box mt-4">                
+                @csrf 
+                <h5 class="font-weight-bold mb-3" style="color: #2d5766; font-size: 15px;">Jumlah Pembelian</h5>
                 <div class="row align-items-center mb-3">
                     <div class="col-5 col-md-4">
                         <div class="input-group shadow-sm">
@@ -92,11 +93,6 @@
                         <button type="submit" class="btn btn-block btn-mandjur-primary py-2 shadow-sm" {{ $o->stok <= 0 ? 'disabled' : '' }}>
                             <i class="fas fa-shopping-cart mr-2"></i> Tambah ke Keranjang
                         </button>
-                    </div>
-                    <div class="col-12">
-                        <a href="https://wa.me/628XXXXXXXXXX?text=Halo%20Apotek%20Sis,%20saya%20ingin%20berkonsultasi%20mengenai%20produk%20{{ urlencode($o->nama_obat) }}" target="_blank" class="btn btn-block btn-mandjur-secondary py-2 shadow-sm text-center">
-                            <i class="fas fa-comment-medical mr-2"></i> Chat Apoteker / Dokter
-                        </a>
                     </div>
                 </div>
             </form>

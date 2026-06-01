@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apotek Sis | Verifikasi Email</title>
+    <title>APOTIKSIS | Verifikasi Email</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
         body { background-color: #f8f9fa; height: 100vh; display: flex; align-items: center; }
@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h3 class="text-primary mb-4">📧 Verifikasi Email Anda!</h3>
                     <p class="text-muted">
-                        Terima kasih telah mendaftar di <strong>Apotek Sis</strong>. Sebelum melanjutkan, silakan periksa kotak masuk (Inbox) atau folder Spam pada Gmail Anda untuk mengaktifkan akun.
+                        Terima kasih telah mendaftar di <strong>APOTIKSIS</strong>. Sebelum melanjutkan, silakan periksa kotak masuk (Inbox) atau folder Spam pada Gmail Anda untuk mengaktifkan akun.
                     </p>
                     <hr>
                     <p class="small text-secondary">Belum menerima email?</p>

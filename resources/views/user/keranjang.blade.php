@@ -41,15 +41,6 @@
 
     <h2 class="font-weight-bold mb-4" style="color: #2d5766;"><i class="fas fa-shopping-cart mr-2"></i>Keranjang Belanja</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
     @if(count($cart) > 0)
         <div class="row">
             <div class="col-lg-8 mb-4">
@@ -60,7 +51,7 @@
                                 <tr class="text-muted border-bottom" style="font-size: 14px;">
                                     <th scope="col" colspan="2">Produk</th>
                                     <th scope="col">Harga</th>
-                                    <th scope="col" class="text-center">Jumlah</th>
+                                    <th scope="col" class="text-center" style="width: 140px;">Jumlah</th>
                                     <th scope="col" class="text-right">Total</th>
                                 </tr>
                             </thead>
@@ -88,11 +79,31 @@
                                         <td class="py-3 align-middle">
                                             Rp {{ number_format($item['harga'], 0, ',', '.') }}
                                         </td>
+                                        
                                         <td class="py-3 align-middle text-center">
-                                            <span class="font-weight-bold px-3 py-1 border rounded bg-light">{{ $item['qty'] }}</span>
+                                            <form action="{{ route('user.keranjang.update') }}" method="POST" class="d-flex align-items-center justify-content-center" style="gap: 5px;">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $id }}">
+                                                <input type="number" name="qty" class="form-control text-center font-weight-bold bg-light" value="{{ $item['qty'] }}" min="1" style="padding: 4px; height: 32px; font-size: 14px; border-radius: 6px; border: 1px solid #cbdcdc;">
+                                                <button type="submit" class="btn btn-sm btn-info px-2 d-flex align-items-center justify-content-center" style="height: 32px; border-radius: 6px; background-color: #006673; border: none;" title="Update Jumlah">
+                                                    <i class="fas fa-sync-alt text-white" style="font-size: 11px;"></i>
+                                                </button>
+                                            </form>
                                         </td>
-                                        <td class="py-3 align-middle text-right font-weight-bold" style="color: #2d5766;">
-                                            Rp {{ number_format($subtotal, 0, ',', '.') }}
+                                        
+                                        <td class="py-3 align-middle text-right">
+                                            <div class="d-flex align-items-center justify-content-end">
+                                                <span class="font-weight-bold mr-3" style="color: #2d5766;">
+                                                    Rp {{ number_format($subtotal, 0, ',', '.') }}
+                                                </span>
+                                                <form action="{{ route('user.keranjang.hapus', $id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus obat ini dari keranjang?');" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link text-danger p-0 m-0" style="outline: none; border: none; text-decoration: none;">
+                                                        <i class="fas fa-trash-alt" style="font-size: 15px; color: #fc544b;"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

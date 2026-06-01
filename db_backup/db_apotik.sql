@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 28, 2026 at 06:59 PM
+-- Generation Time: Jun 01, 2026 at 10:34 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.21
 
@@ -31,10 +31,22 @@ CREATE TABLE `detail_transaksis` (
   `id_detail` bigint UNSIGNED NOT NULL,
   `id_transaksi` bigint UNSIGNED NOT NULL,
   `id_obat` bigint UNSIGNED NOT NULL,
-  `quantity` int NOT NULL,
+  `jumlah` int NOT NULL,
+  `harga` int NOT NULL,
+  `total` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `detail_transaksis`
+--
+
+INSERT INTO `detail_transaksis` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`, `harga`, `total`, `created_at`, `updated_at`) VALUES
+(1, 1, 10, 3, 80000, 240000, NULL, NULL),
+(2, 2, 12, 11, 34000, 374000, '2026-06-01 09:37:23', '2026-06-01 09:37:23'),
+(3, 3, 14, 8, 300000, 2400000, '2026-06-01 09:48:07', '2026-06-01 09:48:07'),
+(4, 4, 16, 1, 3600, 3600, '2026-06-01 10:29:25', '2026-06-01 10:29:25');
 
 -- --------------------------------------------------------
 
@@ -104,6 +116,28 @@ INSERT INTO `kategoris` (`id_kategori`, `nama_kategori`, `deskripsi`, `created_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `laporans`
+--
+
+CREATE TABLE `laporans` (
+  `id_laporan` int NOT NULL,
+  `periode_awal` date NOT NULL,
+  `periode_akhir` date NOT NULL,
+  `total_transaksi` int NOT NULL DEFAULT '0',
+  `total_pendapatan` int NOT NULL DEFAULT '0',
+  `dibuat_pada` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `laporans`
+--
+
+INSERT INTO `laporans` (`id_laporan`, `periode_awal`, `periode_akhir`, `total_transaksi`, `total_pendapatan`, `dibuat_pada`) VALUES
+(1, '2026-06-01', '2026-06-30', 4, 3017600, '2026-06-01 10:32:20');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -157,10 +191,12 @@ CREATE TABLE `obats` (
 --
 
 INSERT INTO `obats` (`id_obat`, `nama_obat`, `foto`, `deskripsi`, `id_kategori`, `harga_obat`, `satuan`, `stok`, `tanggal_exp`, `waktu_produksi`, `created_at`, `updated_at`) VALUES
-(10, 'IKals', '1778754543_1778749862_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 80000, 'tablet', 760, '2026-05-31', '2026-05-01', '2026-05-14 10:29:03', '2026-05-14 10:29:03'),
-(11, 'obat kehidupan', '1778754949_WhatsApp Image 2023-10-30 at 09.34.40_9b33838b.jpg', NULL, 2, 36000, 'Tablet', 560, '2026-05-31', '2026-05-18', '2026-05-14 10:35:49', '2026-05-14 10:35:49'),
-(12, 'Obat Pusinh', '1779035222_WIN_20260422_09_16_29_Pro.jpg', 'ini obat bikin kamu sigma boys', 1, 34000, 'Tablet', 12, '2026-05-01', '2026-04-17', '2026-05-17 16:27:02', '2026-05-17 16:27:02'),
-(14, 'Obat Hotspot nge', '1779089489_WIN_20250108_09_02_36_Pro.jpg', 'obat ini bikin ada anomali hotspot dong nge buat buka wa doang, alias buka seluruh apk nasa ge kalah file filenya', 13, 300000, 'Tablet', 9, '2026-06-28', '2026-05-01', '2026-05-18 07:31:29', '2026-05-18 07:31:29');
+(15, 'MIXAGRIP', '1780307830_obat fllu & batuk.jpg', '-Mengandung Paracetamol 500 mg, Pseudoefedrin HCl 30 mg, Dextromethorphan HBr 10 mg\r\n-Meredakan demam, batuk, sakit kepala, hidung tersumbat, alergi\r\nTerdapat 4 kapsul dalam 1 strip\r\nRingankan gejala flu disertai batuk bersama MIXAGRIP Flu & Batuk New Kapsul 4 Kaplet.\r\nMIXAGRIP Flu & Batuk Kapsul 4 Kaplet merupakan jenis obat yang digunakan untuk mengobati gejala flu seperti demam, sakit kepala, hidung tersumbat, dan bersin disertai batuk. Mixagrip Flu & Batuk Kapsul ini mengandung paracetamol, obat yang memiliki aktivitas sebagai antipyretic sekaligus analgetic, pseudoefedrin, obat nasal decongestan yang merupakan stereoisomer dari norephedrine dan dextromethorphan, obat penekan batuk dari kelas morphinan. Terdapat 4 kapsul dalam 1 strip MIXAGRIP Flu & Batuk New Kapsul 4 Kaplet. Segera pulihkan dirimu dan kembali semangat beraktivitas bersama MIXAGRIP Flu & Batuk New Kapsul 4 Kaplet ketika flu dan batuk menyerang.\r\n\r\nNo. BPOM: DTL 1604429504A1', 7, 4300, 'Tablet', 20, '2026-06-30', '2026-06-01', '2026-06-01 09:57:10', '2026-06-01 09:57:10'),
+(16, 'CLYCLOGYNON', '1780308029_pil kb.jpg', 'kontraindikasi\r\nPasien dengan riwayat atau mengalami gangguan troboflebtis atau troboembolik penyakit arteri serebrovaskuler atau koroner. Diduga atau diketahui kanker payudara. Kanker endometrium atau diduga neoplasia yang tergantung estrogen. Perdarahan abnormal genital yang tidak diketahui penyebabnya, ikterus selama hamil atau karena penggunaan obat kontrasepsi sebelumnya. Penyakit hati berat atau kanker hati. Diketahui atau diduga adanya kehamilan. Anemia sel sabit. Diabetes mellitus berat dengan gangguan vaskuler. Gangguan metabolismelipid. Riwayat herpes gestational. Otosklerosis yang memburuk selama hamil\r\nEfek Samping\r\nKloasma yang dieksaserbasi oleh sinar matahari, penurunan toleransi terhadap lensa kontak, Tromboflebtis, troboemboli arterial, emboli pulmoner, infark miokard, perdarahan serebral, trobosis serebral, hipertensi, penyakit kandung empedu, penyakit hati berat, tumor ganas hati. Trombosis mesemterik, trombosis retinal, mual, muntah, keram perut, spotting breakthrough, bleeding, perubahan haid, amenore, perubahan pada payudara, ikterus kolestatik, migrain, ruam kulit, depres mental, kandidiasis vagina. Anomali kongenital, sindrom premenstrual, katarak, neuritis optik, perubahan nafsu makan, sakit kepala, gugup, pusing, hirsutisme, rambut rontok, eritema multi formis, eritema nodosum, erupsi hemoragik, gvaginitis, porfiria, gangguan fungsi ginjal, jerawat, perubahan libido, kolitis, serebrovaskuler, sindrom yang menyerupai lupus sindrom Budd-Chiari, sindrom yang penyerupai sistitis', 5, 3600, 'Tablet', 19, '2026-06-30', '2026-06-01', '2026-06-01 10:00:29', '2026-06-01 10:29:26'),
+(17, 'ENERVON-C', '1780309018_vitamin.jpg', 'Multivitamin\r\nMengandung kombinasi Vitamin C dan B kompleks\r\nMembantu menjaga daya tahan tubuh\r\nMemulihkan kondisi tubuh setelah sakit\r\nAman dikonsumsi setiap hari\r\nTersedia dalam kemasan strip isi 4 tablet\r\nEnervon-C Multivitamin 4 Tablet adalah suplemen makanan multivitamin yang mengandung vitamin C untuk menjaga daya tahan tubuh, dan vitamin B Kompleks (B1, B2, B3, B5, B6, dan B12) untuk proses metabolisme dalam menghasilkan energi. Aman dikonsumsi setiap hari dan halal. Anjuran pemakaian : Untuk dewasa 1 tablet Enervon-C Multivitamin per hari. Tersedia dalam kemasan strip isi 4 tablet.\r\n\r\nNo. Sertifikasi Halal: 280092971218\r\n\r\nNo. BPOM: SD 011501011', 6, 7200, 'Tablet', 30, '2026-06-30', '2026-06-01', '2026-06-01 10:16:58', '2026-06-01 10:16:58'),
+(18, 'OB-HERBAL', '1780309195_obherbal.jpg', 'READY STOCK! LANGSUNG BISA ORDER! Jika ada pertanyaan silakan ajukan melalui Diskusi / Inbox Seluruh pertanyaan dijawab oleh Ahli Kesehatan amp; Farmasi kami (Apoteker) Ob Herbal Sirup Cair 100 ml - Obat Batuk, Sakit Tenggorokan tokopedia.com/sehatindonesia HARGA LEBIH TERJANGKAU, 100% ASLI amp; READY STOCK Melayani pembelian Ecer, Box / Dus, dan Karton / Jumlah Banyak Silakan kirim Diskusi / Inbox untuk informasi lebih lanjut Kadaluwarsa / Expired Date Aman - Memiliki jangka waktu kadaluwarsa yang aman, baik untuk dikonsumsi langsung, disimpan atau diperdagangkan kembali - Memiliki rata-rata kadaluwarsa / expired date 3 tahun s/d 5 tahun - Menjamin seluruh produk yang kami kirimkan ke pembeli tidak ada yang melewati batas kadaluwarsa / expired date - Selalu memiliki stok produk terbaru, karena perputaran / rotasi penjualan produk kami cepat dan teratur A B H', 8, 27000, 'Botol', 20, '2026-06-30', '2026-06-01', '2026-06-01 10:19:55', '2026-06-01 10:19:55'),
+(19, 'GLINBLENCLAMIDE', '1780309320_obat diabetes.jfif', 'Glibenclamide 5 mg KF\r\n\r\nGlibenclamide adalah obat yang digunakan untuk mengendalikan kadar gula darah tinggi pada penderita diabetes melitus tipe 2.\r\n\r\nObat ini bekerja dengan cara merangsang produksi insulin di tubuh sehingga dapat mengikat glukosa di dalam aliran darah.\r\n\r\nPerlu diingat, obat ini tidak diperuntukkan bagi penderita diabetes tipe 1 atau pasien yang mengalami komplikasi ketoasidosis diabetik.\r\n\r\nHARUS SESUAI DENGAN PETUNJUK DOKTER. Glibenclamide termasuk golongan obat keras sehingga hanya boleh digunakan sesuai dengan rekomendasi atau anjuran dari dokter.\r\n\r\nDetail Produk:\r\n• Komposisi: Glibenclamide 5 mg\r\n• Golongan: Obat keras\r\n• Perlu resep: Ya\r\n• Rute obat: Oral\r\n• Kategori C: Penelitian pada hewan menunjukkan adanya efek samping terhadap janin. Namun, belum ada studi terkontrol pada ibu hamil. Obat hanya boleh digunakan jika manfaatnya lebih besar dibandingkan dengan risikonya pada janin\r\n• Keamanan menyusui: Belum diketahui apakah glibenclamide dapat terserap ke dalam ASI. Ibu menyusui tidak boleh mengonsumsi obat tanpa berkonsultasi dengan dokter terlebih dulu\r\n• Kemasan: Dus, 10 strip @ 10 tablet\r\n• Bentuk obat: Tablet\r\n• Pabrik/Manufaktur: Kimia Farma\r\n• No. BPOM: GKL 9512427210A1', 9, 4000, 'Tablet', 20, '2026-06-30', '2026-06-01', '2026-06-01 10:22:00', '2026-06-01 10:22:00'),
+(20, 'GLINBLENCLAMIDE', '1780309320_obat diabetes.jfif', 'Glibenclamide 5 mg KF\r\n\r\nGlibenclamide adalah obat yang digunakan untuk mengendalikan kadar gula darah tinggi pada penderita diabetes melitus tipe 2.\r\n\r\nObat ini bekerja dengan cara merangsang produksi insulin di tubuh sehingga dapat mengikat glukosa di dalam aliran darah.\r\n\r\nPerlu diingat, obat ini tidak diperuntukkan bagi penderita diabetes tipe 1 atau pasien yang mengalami komplikasi ketoasidosis diabetik.\r\n\r\nHARUS SESUAI DENGAN PETUNJUK DOKTER. Glibenclamide termasuk golongan obat keras sehingga hanya boleh digunakan sesuai dengan rekomendasi atau anjuran dari dokter.\r\n\r\nDetail Produk:\r\n• Komposisi: Glibenclamide 5 mg\r\n• Golongan: Obat keras\r\n• Perlu resep: Ya\r\n• Rute obat: Oral\r\n• Kategori C: Penelitian pada hewan menunjukkan adanya efek samping terhadap janin. Namun, belum ada studi terkontrol pada ibu hamil. Obat hanya boleh digunakan jika manfaatnya lebih besar dibandingkan dengan risikonya pada janin\r\n• Keamanan menyusui: Belum diketahui apakah glibenclamide dapat terserap ke dalam ASI. Ibu menyusui tidak boleh mengonsumsi obat tanpa berkonsultasi dengan dokter terlebih dulu\r\n• Kemasan: Dus, 10 strip @ 10 tablet\r\n• Bentuk obat: Tablet\r\n• Pabrik/Manufaktur: Kimia Farma\r\n• No. BPOM: GKL 9512427210A1', 9, 4000, 'Tablet', 20, '2026-06-30', '2026-06-01', '2026-06-01 10:22:00', '2026-06-01 10:22:00');
 
 -- --------------------------------------------------------
 
@@ -202,10 +238,21 @@ CREATE TABLE `transaksis` (
   `id_transaksi` bigint UNSIGNED NOT NULL,
   `id_user` bigint UNSIGNED NOT NULL,
   `total_harga` int NOT NULL,
-  `tanggal` date NOT NULL,
+  `bayar` int NOT NULL,
+  `tanggal_transaksi` datetime NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksis`
+--
+
+INSERT INTO `transaksis` (`id_transaksi`, `id_user`, `total_harga`, `bayar`, `tanggal_transaksi`, `created_at`, `updated_at`) VALUES
+(1, 2, 240000, 240000, '2026-06-01 15:49:30', NULL, NULL),
+(2, 2, 374000, 374000, '2026-06-01 16:37:23', NULL, NULL),
+(3, 2, 2400000, 2400000, '2026-06-01 16:48:07', NULL, NULL),
+(4, 2, 3600, 3600, '2026-06-01 17:29:25', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -233,7 +280,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nama_user`, `username`, `email`, `email_verified_at`, `password`, `role`, `no_hp`, `alamat`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin Apotek', 'admin_sis', 'admin@mail.com', '2026-05-28 18:23:10', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, NULL, NULL, '2026-05-28 18:23:10', '2026-05-28 18:23:10');
+(1, 'Super Admin Apotek', 'admin_sis', 'admin@mail.com', '2026-05-28 18:23:10', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, NULL, NULL, '2026-05-28 18:23:10', '2026-05-28 18:23:10'),
+(2, 'aira camp', 'aira', 'marvellbintang.maulana@gmail.com', '2026-05-29 03:27:03', '$2y$10$Aq5YfcEdWkxWYTzkF5iP6.lyhqQZNI5gT4viUH9uTRL9YGNUjsWoK', 'customer', '089523429806', 'tipar nangka sahabat baik', NULL, '2026-05-29 03:14:34', '2026-05-29 03:26:33');
 
 --
 -- Indexes for dumped tables
@@ -265,6 +313,12 @@ ALTER TABLE `jobs`
 --
 ALTER TABLE `kategoris`
   ADD PRIMARY KEY (`id_kategori`);
+
+--
+-- Indexes for table `laporans`
+--
+ALTER TABLE `laporans`
+  ADD PRIMARY KEY (`id_laporan`);
 
 --
 -- Indexes for table `migrations`
@@ -316,7 +370,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `detail_transaksis`
 --
 ALTER TABLE `detail_transaksis`
-  MODIFY `id_detail` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -337,6 +391,12 @@ ALTER TABLE `kategoris`
   MODIFY `id_kategori` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `laporans`
+--
+ALTER TABLE `laporans`
+  MODIFY `id_laporan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -346,7 +406,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `obats`
 --
 ALTER TABLE `obats`
-  MODIFY `id_obat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_obat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -358,13 +418,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

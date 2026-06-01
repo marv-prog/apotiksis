@@ -1,27 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Admin; 
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Obat;
+use App\Models\Transaksi;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        // 1. Ambil total semua data obat
-        $total_obat = DB::table('obats')->count();
+        // 1. Hitung data statistik untuk kotak-kotak dashboard atas
+        $total_obat = Obat::count();
+        $stok_menipis = Obat::where('stok', '<=', 10)->count();
+        
+        $total_transaksi = Transaksi::count();
+        $total_pendapatan = Transaksi::sum('total_harga');
 
-        // 2. Ambil data obat yang stoknya menipis (di bawah atau sama dengan 10)
-        $data_stok_rendah = DB::table('obats')->where('stok', '<=', 10)->get();
+        // 2. AMBIL DATA FISIK OBAT (Menyelesaikan error Undefined variable $obat)
+        // Kita ambil semua data obat untuk ditampilkan pada tabel "Daftar Stok Obat Terbaru"
+        $obat = Obat::orderBy('created_at', 'desc')->get();
 
-        // 3. Kita masukkan data yang sama ke dalam dua variabel berbeda ($stok_limit DAN $obat)
-        // Biar baris 27 dan baris 66 di template blade kamu sama-sama puas!
-        $stok_limit = $data_stok_rendah;
-        $obat = $data_stok_rendah;
+        // 3. Otomatisasi pengisian arsip data ke tabel laporans (Sesuai Notepad)
+        $awalBulan = date('Y-m-01');
+        $akhirBulan = date('Y-m-t');
 
-        // Lempar semua variabelnya ke halaman dashboard
-        return view('admin.dashboard', compact('total_obat', 'stok_limit', 'obat')); 
+        Laporan::updateOrCreate(
+            [
+                'periode_awal' => $awalBulan,
+                'periode_akhir' => $akhirBulan
+            ],
+            [
+                'total_transaksi' => $total_transaksi,
+                'total_pendapatan' => $total_pendapatan,
+                'dibuat_pada' => now()
+            ]
+        );
+
+        // 4. Kirim semua variabel ($obat wajib ikut masuk ke compact)
+        return view('admin.dashboard', compact(
+            'total_obat', 
+            'stok_menipis', 
+            'total_transaksi', 
+            'total_pendapatan',
+            'obat'
+        ));
     }
 }

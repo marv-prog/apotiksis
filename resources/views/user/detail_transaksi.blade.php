@@ -1,46 +1,96 @@
-@extends('layouts.user')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota Pemesanan Obat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-@section('content')
-<div class="container mt-5 mb-5 d-flex justify-content-center">
-    <div class="card shadow-sm border-0 p-4" style="border-radius: 16px; max-width: 550px; width: 100%; background-color: #ffffff;">
-        
-        <div class="text-center my-3">
-            <i class="fas fa-check-circle text-success fa-3x mb-2"></i>
-            <h4 class="font-weight-bold" style="color: #2d5766;">Transaksi Berhasil!</h4>
-            <p class="text-muted small">Terima kasih, pesanan Anda telah tercatat di sistem Apotek Sis.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{{ route('user.landing') }}">Apotek Online</a>
         </div>
+    </nav>
 
-        <hr class="my-3" style="border-top: 2px dashed #cbdcdc;">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow border-0">
+                    <div class="card-header bg-success text-white text-center py-3">
+                        <h4 class="mb-0">✨ NOTA PEMESANAN OBAT ✨</h4>
+                        <small>ID Transaksi: #{{ $transaksi->id_transaksi }}</small>
+                    </div>
+                    <div class="card-body p-4">
+                        
+                        @if(session('success'))
+                            <div class="alert alert-success text-center">{{ session('success') }}</div>
+                        @endif
 
-        <h6 class="font-weight-bold mb-3" style="color: #2d5766;"><i class="fas fa-receipt mr-2"></i>Nota Transaksi</h6>
-        
-        <div class="d-flex justify-content-between mb-2 small">
-            <span class="text-muted">ID Transaksi</span>
-            <span class="font-weight-bold text-dark">#{{ $transaksi->id_transaksi ?? $transaksi->id }}</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2 small">
-            <span class="text-muted">ID User / Pelanggan</span>
-            <span class="font-weight-bold text-dark">{{ $transaksi->id_user }}</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2 small">
-            <span class="text-muted">Tanggal Transaksi</span>
-            <span class="text-dark">{{ $transaksi->tanggal_transaksi }}</span>
-        </div>
-        <div class="d-flex justify-content-between mb-2 small">
-            <span class="text-muted">Metode Pembayaran</span>
-            <span class="badge badge-info px-2 py-1" style="border-radius: 4px;">{{ $metode }}</span>
-        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-6">
+                                <h6 class="text-muted mb-1">Tanggal Transaksi:</h6>
+                                <p class="fw-bold">{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d F Y H:i') }}</p>
+                            </div>
+                            <div class="col-sm-6 text-sm-end">
+                                <h6 class="text-muted mb-1">Metode Pembayaran:</h6>
+                                <span class="badge bg-primary fs-6">{{ session('metode_terpilih', 'COD') }}</span>
+                            </div>
+                        </div>
 
-        <hr class="my-3">
+                        <hr>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <span class="font-weight-bold" style="color: #2d5766; font-size: 15px;">Total Harga</span>
-            <span class="font-weight-bold" style="color: #e6005c; font-size: 20px;">Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</span>
+                        <h5 class="mb-3">Rincian Pesanan</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr class="text-center">
+                                        <th>Nama Obat</th>
+                                        <th>Harga Satuan</th>
+                                        <th>Jumlah</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($transaksi->detailTransaksi as $detail)
+                                    <tr>
+                                        <td>{{ $detail->obat->nama_obat ?? 'Obat Terhapus' }}</td>
+                                        <td class="text-end">Rp {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                        <td class="text-center">{{ $detail->jumlah }}</td>
+                                        <td class="text-end fw-bold">Rp {{ number_format($detail->total, 0, ',', '.') }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row justify-content-end mt-4">
+                            <div class="col-md-5">
+                                <div class="d-flex justify-content-between border-bottom pb-2">
+                                    <span class="text-muted">Total Belanja:</span>
+                                    <span>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between pt-2 fw-bold text-success fs-5">
+                                    <span>Total Bayar:</span>
+                                    <span>Rp {{ number_format($transaksi->bayar, 0, ',', '.') }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="text-center">
+                            <p class="text-muted small mb-3">Terima kasih telah berbelanja di Apotek kami. Pesanan Anda sedang kami proses!</p>
+                            <a href="{{ route('user.landing') }}" class="btn btn-success px-4">Kembali ke Katalog</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <a href="{{ route('user.landing') }}" class="btn btn-block py-2.5 text-white font-weight-bold shadow-sm text-center" style="background-color: #325a66; border-radius: 8px; text-decoration: none;">
-            <i class="fas fa-shopping-bag mr-2"></i> Kembali Belanja
-        </a>
     </div>
-</div>
-@endsection
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

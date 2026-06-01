@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Apotek Sis - Dashboard</title>
+  <title>APOTIKSIS - Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/stisla@2.3.0/assets/css/style.css">
@@ -33,7 +33,7 @@
         </section>
       </div>
       <footer class="main-footer">
-        <div class="footer-left">Copyright &copy; 2026 <div class="bullet"></div> Apotek Sis</div>
+        <div class="footer-left">Copyright &copy; 2026 <div class="bullet"></div> APOTIKSIS</div>
       </footer>
     </div>
   </div>

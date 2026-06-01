@@ -3,23 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kategori;
-use Illuminate\Http\Request;
 use App\Models\Obat; 
+use App\Models\Kategori;
+use App\Models\Transaksi; // <-- Kita panggil juga model Transaksi untuk statistik atas
+use Illuminate\Http\Request;
 
 class ObatController extends Controller
 {
     public function index()
     {
-        // Ambil data untuk tabel
+        // 1. Ambil data obat untuk tabel dashboard terbaru
         $obat = Obat::all(); 
         
-        // Ambil data untuk widget kartu
+        // 2. Ambil data statistik untuk widget kartu atas dashboard (Menyelesaikan error Undefined variable)
         $total_obat = Obat::count(); 
-        $stok_limit = Obat::where('stok', '<=', 10)->count();
+        $stok_menipis = Obat::where('stok', '<=', 10)->count(); // <-- FIX: Diubah dari $stok_limit menjadi $stok_menipis
+        $total_transaksi = Transaksi::count();
+        $total_pendapatan = Transaksi::sum('total_harga');
 
-        // Kirim ke view dashboard
-        return view('admin.dashboard', compact('obat', 'total_obat', 'stok_limit'));
+        // 3. Kirim ke view dashboard beserta seluruh statistik wajibnya
+        return view('admin.dashboard', compact('obat', 'total_obat', 'stok_menipis', 'total_transaksi', 'total_pendapatan'));
     }
 
     public function create()
@@ -27,8 +30,14 @@ class ObatController extends Controller
         // Ambil semua data kategori dari phpMyAdmin
         $categories = Kategori::all(); 
 
+        // ⚡ TAMBAHKAN INI: Sediakan variabel penangkal error jika halaman create memakai layout sidebar dashboard
+        $total_obat = Obat::count();
+        $stok_menipis = Obat::where('stok', '<=', 10)->count();
+        $total_transaksi = Transaksi::count();
+        $total_pendapatan = Transaksi::sum('total_harga');
+
         // FIX: Diubah dari 'admin.obat.create' menjadi 'admin.create' sesuai folder aslimu
-        return view('admin.create', compact('categories'));
+        return view('admin.create', compact('categories', 'total_obat', 'stok_menipis', 'total_transaksi', 'total_pendapatan'));
     }
 
     public function store(Request $request)
@@ -66,8 +75,14 @@ class ObatController extends Controller
         $obat = Obat::findOrFail($id);
         $categories = Kategori::all(); 
         
+        // ⚡ TAMBAHKAN INI: Sediakan variabel agar tidak crash saat masuk ke halaman edit
+        $total_obat = Obat::count();
+        $stok_menipis = Obat::where('stok', '<=', 10)->count();
+        $total_transaksi = Transaksi::count();
+        $total_pendapatan = Transaksi::sum('total_harga');
+
         // FIX: Diubah dari 'admin.obat.edit' menjadi 'admin.edit' agar tidak tersesat
-        return view('admin.edit', compact('obat', 'categories'));
+        return view('admin.edit', compact('obat', 'categories', 'total_obat', 'stok_menipis', 'total_transaksi', 'total_pendapatan'));
     }
 
     public function update(Request $request, $id)

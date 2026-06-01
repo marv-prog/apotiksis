@@ -5,7 +5,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Dashboard Apotek</h1>
+        <h1>Dashboard APOTIKSIS</h1>
     </div>
 
     <div class="section-body">
@@ -23,8 +23,8 @@
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning"><i class="fas fa-exclamation-triangle"></i></div>
                     <div class="card-wrap">
-                        <div class="card-header"><h4>Stok < 10</h4></div>
-                        <div class="card-body">{{ $total_obat }}</div>
+                        <div class="card-header"><h4>Stok &le; 10</h4></div>
+                        <div class="card-body">{{ $stok_menipis }}</div> 
                     </div>
                 </div>
             </div>
@@ -34,6 +34,27 @@
                     <div class="card-wrap">
                         <div class="card-header"><h4>Hari Ini</h4></div>
                         <div class="card-body" style="font-size: 14px;">{{ date('d M Y') }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-info"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="card-wrap">
+                        <div class="card-header"><h4>Total Transaksi Sukses</h4></div>
+                        <div class="card-body">{{ $total_transaksi }} Pesanan</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="card-wrap">
+                        <div class="card-header"><h4>Total Pendapatan (Omset)</h4></div>
+                        <div class="card-body" style="font-size: 18px;">Rp {{ number_format($total_pendapatan, 0, ',', '.') }}</div>
                     </div>
                 </div>
             </div>

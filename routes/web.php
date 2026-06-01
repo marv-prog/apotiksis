@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ObatController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\TransaksiController; // <-- MENAMBAHKAN CONTROLLER TRANSAKSI ADMIN
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\User\CustomerController;
 use App\Http\Controllers\AuthController;
@@ -32,6 +33,10 @@ Route::get('/keranjang', [CustomerController::class, 'viewKeranjang'])->name('us
 // Aksi menambahkan obat ke dalam keranjang
 Route::post('/keranjang/tambah/{id}', [CustomerController::class, 'tambahKeranjang'])->name('user.keranjang.tambah');
 
+// FIX: Rute Update Jumlah dan Hapus Item Keranjang (Sudah disederhanakan agar seragam)
+Route::post('/keranjang/update', [CustomerController::class, 'updateKeranjang'])->name('user.keranjang.update');
+Route::delete('/keranjang/hapus/{id}', [CustomerController::class, 'hapusKeranjang'])->name('user.keranjang.hapus');
+
 // Halaman Input Alamat / Metode Pengiriman (Step 2)
 Route::get('/keranjang/alamat', [CustomerController::class, 'viewAlamat'])->name('user.keranjang.alamat');
 
@@ -44,8 +49,11 @@ Route::get('/keranjang/pembayaran', [CustomerController::class, 'viewPembayaran'
 // Proses memasukkan semua data dari session ke database transaksi asli
 Route::post('/keranjang/checkout', [CustomerController::class, 'checkoutTransaksi'])->name('user.keranjang.checkout');
 
-// >>> DI SINI RUTE BARU DETAIL NOTA TRANSAKSI NYA <<<
+// >>> RUTE BARU DETAIL NOTA TRANSAKSI NYA <<<
 Route::get('/keranjang/detail-transaksi/{id}', [CustomerController::class, 'detailTransaksi'])->name('user.keranjang.detail_transaksi');
+
+// >>> RUTE BARU UNTUK MENAMPILKAN HALAMAN QRIS PEMBELI <<<
+Route::get('/keranjang/payment-qris/{id}', [CustomerController::class, 'paymentQris'])->name('user.keranjang.payment_qris');
 
 
 // ==========================================
@@ -59,7 +67,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // ==========================================
-//       ROUTE VERIFIKASI EMAIL ASLI
+//        ROUTE VERIFIKASI EMAIL ASLI
 // ==========================================
 // Tampilan halaman peringatan "Silakan cek inbox email kamu"
 Route::get('/email/verify', function () {
@@ -110,6 +118,15 @@ Route::get('/admin/obat/{id}', [ObatController::class, 'show']);
 // --- FIX: Rute Data User sekarang menggunakan URL /admin/user dan nama rute admin.user.---
 Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user.index');
 Route::delete('/admin/user/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.destroy');
+
+
+// ==========================================
+//      ⚠️ ROUTE BARU LAPORAN TRANSAKSI ADMIN ⚠️
+// ==========================================
+// Membuka halaman rekap penjualan obat
+Route::get('/admin/transaksi', [TransaksiController::class, 'index']);
+// Mengunduh rekap penjualan ke spreadsheet / excel (.xlsx)
+Route::get('/admin/transaksi/export', [TransaksiController::class, 'exportExcel']);
 
 
 // ==========================================

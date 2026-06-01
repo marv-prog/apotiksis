@@ -46,13 +46,24 @@
                 <div class="card shadow-sm border-0 p-4 mb-4" style="border-radius: 12px; background-color: #ffffff;">
                     <h5 class="font-weight-bold mb-3" style="color: #2d5766;">Pilih Metode Pengambilan</h5>
                     
-                    <div class="form-group">
-                        <label class="font-weight-bold text-muted small">Jenis Layanan</label>
-                        <select class="form-control" name="metode_pengambilan" id="metodePengiriman" style="height: 45px; border-radius: 8px; font-weight: 600; color: #2d5766;">
-                            <option value="antar">Diantar ke Rumah / Alamat</option>
-                            <option value="ambil">Ambil Langsung di Toko (Apotek Sis)</option>
-                        </select>
+                    <div class="card shadow-sm border-0 p-4 mb-4" style="border-radius: 12px; background-color: #ffffff;">
+                    <h5 class="font-weight-bold mb-3" style="color: #2d5766;"><i class="fas fa-truck mr-2"></i> Metode Pengiriman</h5>
+                    <div class="form-group mb-0">
+                        <label class="text-muted small font-weight-bold">Jenis Layanan</label>
+                        
+                        <input type="hidden" name="jenis_layanan" value="Diantar ke Rumah / Alamat">
+                        
+                        <div class="d-flex align-items-center p-3 rounded" style="background-color: #eef7f9; border: 1px solid #cbdcdc;">
+                            <div class="mr-3 text-center rounded-circle d-flex align-items-center justify-content-center" style="background-color: #325a66; width: 40px; height: 40px;">
+                                <i class="fas fa-home text-white"></i>
+                            </div>
+                            <div>
+                                <strong style="color: #2d5766; display: block; font-size: 15px;">Diantar ke Rumah / Alamat</strong>
+                                <span class="text-muted small">Pesanan obat Anda akan langsung diantarkan oleh kurir resmi apotiksis sampai ke alamat anda.</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 </div>
 
                 <div class="card shadow-sm border-0 p-4" style="border-radius: 12px; background-color: #ffffff;">
@@ -89,7 +100,7 @@
                     <div id="blokAmbilToko" style="display: none;">
                         <div class="alert alert-info border-0 shadow-sm" style="background-color: #eef9f9; color: #2d5766; border-radius: 8px;">
                             <i class="fas fa-info-circle mr-2"></i> 
-                            <strong>Info Pengambilan:</strong> Anda dapat langsung datang ke <strong>Apotek Sis</strong> untuk mengambil obat setelah pesanan dikonfirmasi dan dibayar. Tidak ada biaya ongkos kirim.
+                            <strong>Info Pengambilan:</strong> Anda dapat langsung datang ke <strong>APOTIKSIS</strong> untuk mengambil obat setelah pesanan dikonfirmasi dan dibayar. Tidak ada biaya ongkos kirim.
                         </div>
                     </div>
                 </div>
