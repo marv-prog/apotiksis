@@ -20,6 +20,6 @@ class Laporan extends Model
         'dibuat_pada'
     ];
 
-    // Matikan timestamps default karena kita pakai 'dibuat_pada'
+    // matikan timestamps default karena kita pakai 'dibuat_pada'
     public $timestamps = false;
 }

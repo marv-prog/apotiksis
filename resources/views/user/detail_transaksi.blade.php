@@ -19,7 +19,7 @@
             <div class="col-md-8">
                 <div class="card shadow border-0">
                     <div class="card-header bg-success text-white text-center py-3">
-                        <h4 class="mb-0">✨ NOTA PEMESANAN OBAT ✨</h4>
+                        <h4 class="mb-0">NOTA PEMESANAN OBAT</h4>
                         <small>ID Transaksi: #{{ $transaksi->id_transaksi }}</small>
                     </div>
                     <div class="card-body p-4">

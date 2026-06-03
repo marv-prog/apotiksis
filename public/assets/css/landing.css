@@ -63,7 +63,6 @@
     box-shadow: 0 4px 10px rgba(0, 102, 115, 0.15);
 }
 
-/* Highlight kategori yang sedang aktif */
 .category-slider-item.active .category-circle {
     background-color: #2d5766;
     box-shadow: 0 4px 12px rgba(45, 87, 102, 0.4);

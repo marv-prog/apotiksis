@@ -12,7 +12,7 @@ class DetailTransaksi extends Model
     protected $table = 'detail_transaksis';
     protected $primaryKey = 'id_detail';
     
-    // Aktifkan karena di phpMyAdmin kamu ada kolom created_at & updated_at
+    // aktifkan karena di phpmyadmin ada kolom created_at & updated_at
     public $timestamps = true; 
 
     protected $fillable = [
@@ -23,7 +23,7 @@ class DetailTransaksi extends Model
         'total'
     ];
 
-    // Hubungkan Detail ke tabel Obat kustom kamu (Primary Key: id_obat)
+    // hubungkan dengan id_obat di DetailTransaksi
     public function obat()
     {
         return $this->belongsTo(Obat::class, 'id_obat', 'id_obat');

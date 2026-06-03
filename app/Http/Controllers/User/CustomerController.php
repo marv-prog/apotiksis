@@ -10,14 +10,14 @@ use App\Models\Transaksi;
 
 class CustomerController extends Controller
 {
-    // 1. Menampilkan halaman katalog utama
+    // menampilkan halaman katalog utama
     public function index()
     {
         $obat = Obat::all(); 
         return view('user.landing', compact('obat'));
     }
 
-    // 2. Menampilkan halaman detail obat
+    // menampilkan halaman detail obat
     public function showObat($id = null)
     {
         if (!$id) {
@@ -28,7 +28,7 @@ class CustomerController extends Controller
         return view('user.detail', compact('o'));
     }
 
-    // 3. Menyaring obat berdasarkan kategori yang dipilih
+    // menyaring obat berdasarkan kategori yang dipilih
     public function filterKategori($id)
     {
         $obat = Obat::where('id_kategori', $id)->get();
@@ -40,7 +40,7 @@ class CustomerController extends Controller
         return view('user.landing', compact('obat', 'kategoriAktif', 'namaKategoriAktif'));
     }
 
-    // 4. FUNGSI UNTUK MEMPROSES OBAT MASUK KE KERANJANG (SESSION)
+    // untuk memproses obat masuk ke keranjang (session)
     public function tambahKeranjang(Request $request, $id)
     {
         $obat = \App\Models\Obat::findOrFail($id); 
@@ -48,13 +48,13 @@ class CustomerController extends Controller
 
         $jumlahBeli = $request->input('qty', 1);
 
-        // ⚡ VALIDASI TAMBAHAN: Cek apakah stok obat di apotek mencukupi atau tidak
+        // cek apakah stok obat di apotek mencukupi atau tidak
         if ($obat->stok < $jumlahBeli) {
             return redirect()->back()->with('error', 'Maaf, stok obat ' . $obat->nama_obat . ' tidak mencukupi! Sisa stok saat ini: ' . $obat->stok);
         }
 
         if(isset($cart[$id])) {
-            // Jika obat sudah ada di keranjang, cek total penggabungan qty-nya dengan stok
+            // jika obat sudah ada di keranjang, cek total penggabungan qty-nya dengan stok
             if ($obat->stok < ($cart[$id]['qty'] + $jumlahBeli)) {
                 return redirect()->back()->with('error', 'Gagal menambahkan! Total keranjang Anda melebihi sisa stok obat.');
             }
@@ -72,7 +72,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Obat berhasil dimasukkan ke keranjang belanjaan Anda!');
     }
 
-    // 5. FUNGSI UNTUK MENAMPILKAN HALAMAN VISUAL KERANJANG BELANJA (STEP 1)
+    // untuk menampilkan halaman visual keranjang belanja (step 1)
     public function viewKeranjang()
     {
         if (!auth()->check()) {
@@ -83,14 +83,14 @@ class CustomerController extends Controller
         return view('user.keranjang', compact('cart'));
     }
 
-    // 6. MENAMPILKAN HALAMAN INPUT ALAMAT / METODE PENGIRIMAN (STEP 2)
+    // menampilkan halaman input alamat / metode pengiriman (step 2)
     public function viewAlamat()
     {
         $cart = session()->get('cart', []);
         return view('user.alamat', compact('cart'));
     }
 
-    // 7. MENYIMPAN DATA ALAMAT SEMENTARA KE SESSION
+    // menyimpan data alamat sementara ke session agar bisa dipakai di step selanjutnya (pembayaran)
     public function simpanAlamatSession(Request $request)
     {
         session()->put('alamat_checkout', [
@@ -103,14 +103,14 @@ class CustomerController extends Controller
         return redirect()->route('user.keranjang.pembayaran');
     }
 
-    // 8. MENAMPILKAN HALAMAN METODE PEMBAYARAN (STEP 3)
+    // menampilan halaman metode pembayaran (step 3)
     public function viewPembayaran()
     {
         $cart = session()->get('cart', []);
         return view('user.pembayaran', compact('cart'));
     }
 
-    // 9. PROSES TRANSAKSI AKHIR (FIXED & SINKRON DENGAN COLUMN PHPMYADMIN)
+    // proses checkout dari keranjang belanja, menyimpan data transaksi ke database, dan mengurangi stok obat otomatis
     public function checkoutTransaksi(Request $request)
     {
         $cart = session()->get('cart', []);
@@ -131,20 +131,18 @@ class CustomerController extends Controller
 
         $metodePilihan = $request->input('bank', 'COD');
 
-        // A. SIMPAN DATA KE TABEL TRANSAKSI
+        // simpan data transaksi utama dulu ke tabel transaksi, baru nanti di bawahnya disimpan ke detail transaksi
         $transaksi = new \App\Models\Transaksi(); 
         $transaksi->id_user           = auth()->user()->id_user; 
         $transaksi->total_harga       = $totalHarga; 
         $transaksi->bayar             = $totalHarga; 
-        
-        // ⚡ PERBAIKAN DI SINI: Diubah dari 'tanggal' menjadi 'tanggal_transaksi' sesuai database ⚡
         $transaksi->tanggal_transaksi = now(); 
         
         $transaksi->save(); 
 
         $idBaru = $transaksi->id_transaksi;
 
-        // B. SIMPAN DATA KE TABEL DETAIL TRANSAKSI & POTONG STOK OBAT
+        // simpan dtail transaksi sekaligus potong stok obat otomatis
         foreach($cart as $idObat => $item) {
             $detail = new \App\Models\DetailTransaksi(); 
             $detail->id_transaksi = $idBaru;
@@ -154,7 +152,7 @@ class CustomerController extends Controller
             $detail->total        = $item['harga'] * $item['qty'];
             $detail->save();
 
-            // LOGIKA POTONG STOK OBAT OTOMATIS
+            // logika potong stok obat otomatis
             $obat = \App\Models\Obat::find($idObat);
             if ($obat) {
                 $obat->stok = $obat->stok - $item['qty'];
@@ -164,7 +162,7 @@ class CustomerController extends Controller
 
         session()->put('metode_terpilih', $metodePilihan);
 
-        // C. REDIRECT ALUR SESUAI METODE PEMBAYARAN
+        // redirect ke halaman instruksi QRIS jika pilih QRIS, kalau COD langsung ke halaman detail transaksi
         if ($metodePilihan === 'QRIS') {
             return redirect()->route('user.keranjang.payment_qris', $idBaru)->with('success', 'Transaksi berhasil dibuat! Silakan scan QRIS Anda.');
         } else {
@@ -173,7 +171,7 @@ class CustomerController extends Controller
         }
     }
 
-    // 10. HALAMAN INSTRUKSI SCAN QRIS
+    // page untuk qris setelah checkout, menampilkan QRIS dan instruksi pembayaran
     public function paymentQris($id)
     {
         if (!auth()->check()) {
@@ -187,7 +185,7 @@ class CustomerController extends Controller
         return view('user.qris', compact('transaksi'));
     }
 
-    // 11. FUNGSI UNTUK MENGUPDATE JUMLAH (QTY) DI KERANJANG
+    // untuk mengupdate jumlah obat di keranjang belanjaan (step 1), dengan validasi cek stok obat secara real-time
     public function updateKeranjang(Request $request)
     {
         if($request->id && $request->qty) {
@@ -204,7 +202,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('error', 'Gagal memperbarui jumlah.');
     }
 
-    // 12. FUNGSI UNTUK MENGHAPUS SATU ITEM OBAT DARI KERANJANG
+    // untuk menghapus obat dari keranjang belanjaan
     public function hapusKeranjang($id)
     {
         $cart = session()->get('cart', []);
@@ -218,7 +216,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('error', 'Obat tidak ditemukan di keranjang.');
     }
 
-    // 13. HALAMAN NOTA / DETAIL TRANSAKSI SETELAH CHECKOUT
+    // page nota dan detail transaksi setelah checkout berhasil
     public function detailTransaksi($id)
     {
         $transaksi = \App\Models\Transaksi::with('detailTransaksi.obat')->findOrFail($id);

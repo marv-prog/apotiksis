@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Obat; 
 use App\Models\Kategori;
-use App\Models\Transaksi; // <-- Kita panggil juga model Transaksi untuk statistik atas
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class ObatController extends Controller
@@ -75,19 +75,18 @@ class ObatController extends Controller
         $obat = Obat::findOrFail($id);
         $categories = Kategori::all(); 
         
-        // ⚡ TAMBAHKAN INI: Sediakan variabel agar tidak crash saat masuk ke halaman edit
+        // sediakan variabel agar tidak crash saat masuk ke halaman edit
         $total_obat = Obat::count();
         $stok_menipis = Obat::where('stok', '<=', 10)->count();
         $total_transaksi = Transaksi::count();
         $total_pendapatan = Transaksi::sum('total_harga');
 
-        // FIX: Diubah dari 'admin.obat.edit' menjadi 'admin.edit' agar tidak tersesat
         return view('admin.edit', compact('obat', 'categories', 'total_obat', 'stok_menipis', 'total_transaksi', 'total_pendapatan'));
     }
 
     public function update(Request $request, $id)
     {
-        // Cari data dan update dengan data baru dari form
+        // cari data dan update dengan data baru dari form
         $obat = Obat::findOrFail($id);
         $obat->update($request->all());
 
@@ -104,11 +103,10 @@ class ObatController extends Controller
 
     public function show($id)
     {
-        // Mengambil data obat berdasarkan ID menggunakan model yang sudah di-import di atas
+        // mengambil data obat berdasarkan id menggunakan model yang sudah di-import di atas
         $obat = Obat::find($id);
 
         if ($obat) {
-            // Mengembalikan respon berupa data JSON untuk kebutuhan AJAX detail
             return response()->json($obat);
         }
 

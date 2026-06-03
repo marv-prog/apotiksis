@@ -13,7 +13,7 @@
     background-color: #f5f9f9;
 }
 
-/* Style saat radio button dipilih */
+/* style saat radio button dipilih */
 .bank-input:checked + .bank-label .bank-option {
     border-color: #e6005c;
     background-color: #fff5f8;

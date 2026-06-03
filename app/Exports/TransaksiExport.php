@@ -15,7 +15,7 @@ class TransaksiExport implements FromCollection, WithHeadings, WithMapping
     }
 
     /**
-    * Menambahkan Header Kolom Baru di Excel
+    * buat nambahin hader Kolom Baru di Excel
     */
     public function headings(): array
     {
@@ -31,7 +31,7 @@ class TransaksiExport implements FromCollection, WithHeadings, WithMapping
     }
 
     /**
-    * Memetakan Data Nilainya Kedalam Baris Kolom Excel
+    * memetakan data transaksi ke dalam format yang sesuai untuk setiap kolom di excel.
     */
     public function map($transaksi): array
     {

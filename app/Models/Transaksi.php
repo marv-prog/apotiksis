@@ -16,16 +16,16 @@ class Transaksi extends Model
         'id_user',
         'total_harga',
         'bayar',
-        'tanggal_transaksi', // ⚡ Pastikan menggunakan tanggal_transaksi
+        'tanggal_transaksi', 
     ];
 
     public $timestamps = false; 
-
+// hubungkan dengan User berdasarkan id_user
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
-
+    // hubungkan dengan DetailTransaksi berdasarkan id_transaksi
     public function detailTransaksi()
     {
         return $this->hasMany(DetailTransaksi::class, 'id_transaksi', 'id_transaksi');

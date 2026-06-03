@@ -12,18 +12,18 @@ class AdminController extends Controller
 {
     public function index()
     {
-        // 1. Hitung data statistik untuk kotak-kotak dashboard atas
+        // buat hitung data statistik untuk kotak-kotak dashboard atas
         $total_obat = Obat::count();
         $stok_menipis = Obat::where('stok', '<=', 10)->count();
         
         $total_transaksi = Transaksi::count();
         $total_pendapatan = Transaksi::sum('total_harga');
 
-        // 2. AMBIL DATA FISIK OBAT (Menyelesaikan error Undefined variable $obat)
-        // Kita ambil semua data obat untuk ditampilkan pada tabel "Daftar Stok Obat Terbaru"
+        // buat ambil data obat terbaru untuk ditampilkan di tabel bawah dashboard
+        // buat ambil semua data obat untuk ditampilkan pada tabel daftar stok obat terbaru di dashboard
         $obat = Obat::orderBy('created_at', 'desc')->get();
 
-        // 3. Otomatisasi pengisian arsip data ke tabel laporans (Sesuai Notepad)
+        // otomatisasi pengisian arsip data ke tabel laporan setiap awal bulan
         $awalBulan = date('Y-m-01');
         $akhirBulan = date('Y-m-t');
 
@@ -39,7 +39,7 @@ class AdminController extends Controller
             ]
         );
 
-        // 4. Kirim semua variabel ($obat wajib ikut masuk ke compact)
+        // untuk kirim semua variabel ($obat wajib ikut masuk ke compact)
         return view('admin.dashboard', compact(
             'total_obat', 
             'stok_menipis', 

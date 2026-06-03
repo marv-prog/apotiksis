@@ -9,10 +9,10 @@ class Obat extends Model
 {
     use HasFactory;
 
-    protected $table = 'obats'; // Nama tabel di database
-    protected $primaryKey = 'id_obat'; // Primary Key kamu
+    protected $table = 'obats'; // nama tabel di database
+    protected $primaryKey = 'id_obat'; // primary key khusus karena bukan 'id' default
 
-    // Ini adalah daftar kolom yang WAJIB ada supaya bisa simpan data
+    // ini daftar kolom yang wajib ada supaya bisa simpan data
     protected $fillable = [
         'nama_obat', 
         'foto',

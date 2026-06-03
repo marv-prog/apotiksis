@@ -24,17 +24,17 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             
-            // 1. JIKA ADMIN -> LANGSUNG KE DASHBOARD ADMIN
+            // jika admin langsung ke dashboard admin, jika customer cek verifikasi email dulu
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard')->with('success', 'Selamat Datang Admin!');
             }
 
-            // 2. JIKA CUSTOMER BELUM VERIFIKASI EMAIL
+            // jika customer belum verifikasi email, lempar ke halaman notice untuk verifikasi email
             if (!Auth::user()->hasVerifiedEmail()) {
                 return redirect()->route('verification.notice');
             }
 
-            // 3. JIKA CUSTOMER SUDAH VERIFIKASI
+            // jika customer sudah verifikasi email, lempar ke halaman landing page utama
             return redirect()->route('user.landing')->with('success', 'Selamat Datang!');
         }
 
@@ -47,7 +47,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // 1. Validasi inputan form dari user
+        // 1input form register dengan validasi yang sesuai
         $request->validate([
             'nama_user' => 'required|string|max:255',
             'username'  => 'required|string|max:255|unique:users',
@@ -57,26 +57,26 @@ class AuthController extends Controller
             'password'  => 'required|string|min:5',
         ]);
 
-        // 2. Simpan ke database dengan role otomatis sebagai 'customer'
+        // simpan ke database dengan role otomatis sebagai customer biasa, dan password di-hash aman
         $user = User::create([
             'nama_user' => $request->nama_user,
             'username'  => $request->username,
             'email'     => $request->email,
             'no_hp'     => $request->no_hp,
             'alamat'    => $request->alamat,
-            'role'      => 'customer', // Otomatis diset sebagai customer biasa
-            'password'  => Hash::make($request->password), // Password di-enkripsi aman
+            'role'      => 'customer', // otomatis diset sebagai customer biasa
+            'password'  => Hash::make($request->password), // password di-enkripsi aman
         ]);
 
-        // 3. Picu event verifikasi email bawaan Laravel
+        // picu event verifikasi email bawaan laravel
         event(new Registered($user));
 
-        // 4. Otomatis login-kan user lalu lempar ke halaman verifikasi email notice
+        // otomatis loginkan user lalu lempar ke halaman verifikasi email notice
         auth()->login($user);
 
         return redirect()->route('verification.notice');
     }
-
+    // untuk logout user baik admin maupun customer
     public function logout(Request $request)
     {
         Auth::logout();

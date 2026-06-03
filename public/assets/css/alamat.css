@@ -28,9 +28,8 @@
     font-size: 13px;
 }
 
-/* Style khusus saat langkah ALAMAT aktif (Step 2) */
 .step-item.active {
-    color: #e6005c; /* Warna pink/merah sesuai konsep kamu */
+    color: #e6005c;
     font-weight: 600;
 }
 

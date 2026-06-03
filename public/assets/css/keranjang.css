@@ -25,10 +25,8 @@
     font-weight: bold;
     font-size: 13px;
 }
-
-/* Style khusus saat langkah tersebut aktif (Keranjang) */
 .step-item.active {
-    color: #e6005c; /* Warna pink/merah sesuai gambar */
+    color: #e6005c;
     font-weight: 600;
 }
 

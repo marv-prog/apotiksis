@@ -13,13 +13,13 @@
 
             <li class="menu-header">Manajemen</li>
             
-            <!-- Menu Dropdown Utama -->
+            <!-- menu dropdown utama -->
             <li class="nav-item dropdown {{ Request::is('admin/obat*', 'admin/kategori*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-pills"></i> <span>Data Obat</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <!-- Sub-menu 1: Daftar Obat -->
+                    <!-- Daftar Obat -->
                     <li class="{{ Request::is('admin/obat*') ? 'active' : '' }}">
                         <a class="nav-link" href="/admin/obat">Daftar Stok Obat</a>
                     </li>

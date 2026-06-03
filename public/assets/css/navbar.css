@@ -2,7 +2,7 @@ body {
     background-color: #f8fafc;
 }
 
-/* HEADER UTAMA */
+/* header utama */
 .bg-mandjur {
     background-color: #a4d4d4 !important;
     padding-top: 18px !important;
@@ -14,7 +14,7 @@ body {
     color: #2d5766 !important;
 }
 
-/* KOLOM PENCARIAN */
+/* kolom pencarian */
 .search-input-custom {
     border-radius: 8px 0 0 8px !important;
     height: 46px !important;
@@ -38,7 +38,7 @@ body {
     color: white !important;
 }
 
-/* MENU KATEGORI */
+/* menu */
 .nav-kategori-container {
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
@@ -54,12 +54,12 @@ body {
 }
 
 .nav-kategori .nav-link:hover {
-    color: #e6005c !important;
-    border-bottom: 3px solid #e6005c;
+    color: #2d5766 !important;
+    border-bottom: 3px solid #2d5766;
     background-color: #fff5f8;
 }
 
-/* LINK IKON NAVBAR */
+/* ikon navbar */
 .nav-icon-box {
     display: inline-flex;
     align-items: center;
@@ -74,7 +74,7 @@ body {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* BADGE ANGKA KERANJANG */
+/* angka keranjang */
 .cart-wrapper {
     position: relative;
     display: inline-block;
@@ -86,7 +86,7 @@ body {
     top: -4px;
     right: -6px;
     padding: 4px 7px;
-    background-color: #e6005c !important;
+    background-color: #2d5766 !important;
     color: white !important;
     border: 2px solid #a4d4d4;
 }
@@ -98,7 +98,7 @@ body {
     padding: 40px 0 !important;
 }
 
-/* LOGO */
+/* logo */
 .navbar-brand-logo {
     display: inline-flex;
     align-items: center;

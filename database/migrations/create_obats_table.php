@@ -14,7 +14,7 @@ class CreateObatsTable extends Migration
     public function up()
     {
         Schema::create('obats', function (Blueprint $table) {
-            $table->id('id_obat'); // Primary Key sesuai entitas kamu
+            $table->id('id_obat'); // Primary Key
             $table->string('nama_obat');
             $table->unsignedBigInteger('id_kategori'); // Foreign Key
             $table->integer('harga_obat');
