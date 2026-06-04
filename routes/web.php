@@ -121,7 +121,7 @@ Route::delete('/admin/user/{id}', [AdminUserController::class, 'destroy'])->name
 
 
 // ==========================================
-//      ⚠️ ROUTE BARU LAPORAN TRANSAKSI ADMIN ⚠️
+//      ROUTE BARU LAPORAN TRANSAKSI ADMIN 
 // ==========================================
 // Membuka halaman rekap penjualan obat
 Route::get('/admin/transaksi', [TransaksiController::class, 'index']);
