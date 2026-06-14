@@ -1,29 +1,52 @@
 body {
     background-color: #f8fafc;
+
+    /* 🟢 KEPADATAN WARNA DAUN DISESUAIKAN PAS (8%) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%231ea385' fill-opacity='0.08'%3E%3Cpath d='M25 10c10 0 15 8 15 15s-8 15-15 15-15-8-15-15 5-15 15-15zm0 26c6 0 11-5 11-11s-5-11-11-11-11 5-11 11 5 11 11 11zm50 38c10 0 15 8 15 15s-8 15-15 15-15-8-15-15 5-15 15-15zm0 26c6 0 11-5 11-11s-5-11-11-11-11 5-11 11 5 11 11 11zM15 65c5 0 8 4 8 8s-4 8-8 8-8-4-8-8 3-8 8-8zm0 13c3 0 5-2 5-5s-2-5-5-5-5 2-5 5 2 5 5 5zm50-40c5 0 8 4 8 8s-4 8-8 8-8-4-8-8 3-8 8-8zm0 13c3 0 5-2 5-5s-2-5-5-5-5 2-5 5 2 5 5 5z'/%3E%3C/g%3E%3C/svg%3E");
+
+    background-repeat: repeat;
 }
 
-/* header utama */
+/* 🟢 PERUBAHAN DI SINI: Membuat bagian utama navbar atas melayang statis */
 .bg-mandjur {
-    background-color: #a4d4d4 !important;
+    background-color: #2a9d8f !important; /* Hijau utama banner */
     padding-top: 18px !important;
     padding-bottom: 18px !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* Tambahan Atribut Sticky */
+    position: -webkit-sticky; /* Dukungan Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* Menjamin posisi di paling atas */
+}
+
+/* 🟢 PERUBAHAN DI SINI: Membuat menu kategori ikut menempel tepat di bawah banner atas */
+.nav-kategori-container {
+    background-color: #1e7066 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    /* Tambahan Atribut Sticky */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 82px; /* Disesuaikan dengan perkiraan tinggi komponen .bg-mandjur kamu */
+    z-index: 1020;
 }
 
 .text-mandjur {
-    color: #2d5766 !important;
+    color: #164e47 !important;
 }
 
-/* kolom pencarian */
 .search-input-custom {
     border-radius: 8px 0 0 8px !important;
     height: 46px !important;
     font-size: 14px;
     padding-left: 20px !important;
+    border: 1px solid #ced4da !important;
 }
 
 .btn-mandjur-search {
-    background-color: #3b6375 !important;
+    background-color: #1e7066 !important;
     color: white !important;
     border: none;
     border-radius: 0 8px 8px 0 !important;
@@ -34,18 +57,12 @@ body {
 }
 
 .btn-mandjur-search:hover {
-    background-color: #2d5766 !important;
+    background-color: #134741 !important;
     color: white !important;
 }
 
-/* menu */
-.nav-kategori-container {
-    background-color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-}
-
 .nav-kategori .nav-link {
-    color: #4a6b75 !important;
+    color: #ffffff !important;
     font-weight: 600;
     font-size: 14px;
     transition: all 0.2s ease-in-out;
@@ -54,9 +71,9 @@ body {
 }
 
 .nav-kategori .nav-link:hover {
-    color: #2d5766 !important;
-    border-bottom: 3px solid #2d5766;
-    background-color: #fff5f8;
+    color: #ffffff !important;
+    border-bottom: 3px solid #ffffff;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* ikon navbar */
@@ -67,6 +84,7 @@ body {
     width: 42px;
     height: 42px;
     border-radius: 50%;
+    color: #ffffff !important;
     transition: background-color 0.2s;
 }
 
@@ -80,15 +98,16 @@ body {
     display: inline-block;
 }
 
+/* BADGE ANGKA KERANJANG */
 .cart-badge-custom {
     font-size: 10px;
     font-weight: bold;
     top: -4px;
     right: -6px;
     padding: 4px 7px;
-    background-color: #2d5766 !important;
+    background-color: #164e47 !important;
     color: white !important;
-    border: 2px solid #a4d4d4;
+    border: 2px solid #2a9d8f;
 }
 
 .main-wrapper {
@@ -110,11 +129,72 @@ body {
     max-height: 110px;
     width: auto;
     object-fit: contain;
-    margin-top: -2px;
-    transform: scale(1.4);
+    margin-top: 8px !important;
+    transform: scale(1.4) translateY(4px) !important;
     transition: transform 0.2s;
 }
 
 .navbar-brand-logo:hover img {
-    transform: scale(1.45);
+    transform: scale(1.45) translateY(4px) !important;
+}
+
+/* STYLING FOOTER CUSTOM (NADA WARNA HIJAU PEKAT MANDJUR) */
+.footer-custom {
+    background-color: #1a423e !important; /* Hijau gelap solid menyesuaikan gambar referensi */
+    color: #ffffff !important;
+    font-family: sans-serif;
+}
+
+.footer-heading-custom {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.footer-links-custom li {
+    margin-bottom: 10px;
+}
+
+.footer-links-custom a {
+    color: #b3c7c5 !important; /* Warna abu-abu kehijauan lembut agar nyaman dibaca */
+    font-size: 13.5px;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.footer-links-custom a:hover {
+    color: #ffffff !important; /* Menjadi putih terang saat di-hover */
+}
+
+.text-footer-info {
+    color: #b3c7c5 !important;
+    font-size: 13.5px;
+}
+
+.footer-social-icons a {
+    color: #ffffff !important;
+    font-size: 18px;
+    transition: opacity 0.2s;
+}
+
+.footer-social-icons a:hover {
+    opacity: 0.8;
+}
+
+.border-top-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.text-copyright-custom {
+    font-size: 12px;
+    color: #8fa8a5 !important;
+    .nav-kategori-container {
+        position: -webkit-sticky; /* Untuk browser Safari */
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Agar selalu berada di atas konten lain */
+        background-color: #2d5766; /* Sesuaikan dengan warna hijau gelap Anda */
+    }
 }

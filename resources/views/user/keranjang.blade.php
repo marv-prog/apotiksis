@@ -9,8 +9,7 @@
         <div class="col-md-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0 bg-transparent" style="font-size: 14px;">
-                    <li class="breadcrumb-item"><a href="{{ route('user.landing') }}" style="color: #e6005c; text-decoration: none;">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" style="color: #2d5766;">Keranjang</li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.landing') }}" style="color: #006673; text-decoration: none;">Home</a></li>                    <li class="breadcrumb-item active" aria-current="page" style="color: #2d5766;">Keranjang</li>
                 </ol>
             </nav>
         </div>
@@ -49,10 +48,10 @@
                         <table class="table table-borderless align-middle mb-0">
                             <thead>
                                 <tr class="text-muted border-bottom" style="font-size: 14px;">
-                                    <th scope="col" colspan="2">Produk</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col" class="text-center" style="width: 140px;">Jumlah</th>
-                                    <th scope="col" class="text-right">Total</th>
+                                    <th scope="col" colspan="2" style="width: 30%;">Produk</th>
+                                    <th scope="col" style="width: 15%;">Harga</th>
+                                    <th scope="col" class="text-center" style="width: 20%;">Jumlah</th>
+                                    <th scope="col" class="text-right" style="width: 25%;">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,7 +62,7 @@
                                         $totalSemua += $subtotal; 
                                     @endphp
                                     <tr class="border-bottom" style="font-size: 15px;">
-                                        <td style="width: 80px;" class="py-3">
+                                        <td style="width: 80px;" class="py-4">
                                             <div class="p-2 border rounded text-center" style="background: #ffffff; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
                                                 @if($item['foto'])
                                                     <img src="{{ asset('assets/img/obat/'.$item['foto']) }}" alt="{{ $item['nama_obat'] }}" class="img-fluid" style="max-height: 50px; object-fit: contain;">
@@ -72,35 +71,41 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="py-3 align-middle">
+                                        <td class="py-4 align-middle">
                                             <h6 class="font-weight-bold mb-1" style="color: #2d5766;">{{ $item['nama_obat'] }}</h6>
                                             <small class="text-muted">Satuan: {{ $item['satuan'] }}</small>
                                         </td>
-                                        <td class="py-3 align-middle">
+                                        <td class="py-4 align-middle">
                                             Rp {{ number_format($item['harga'], 0, ',', '.') }}
                                         </td>
                                         
-                                        <td class="py-3 align-middle text-center">
-                                            <form action="{{ route('user.keranjang.update') }}" method="POST" class="d-flex align-items-center justify-content-center" style="gap: 5px;">
+                                        <td class="py-4 align-middle text-center">
+                                            <form action="{{ route('user.keranjang.update') }}" method="POST" class="d-flex align-items-center justify-content-center" style="gap: 8px;">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $id }}">
-                                                <input type="number" name="qty" class="form-control text-center font-weight-bold bg-light" value="{{ $item['qty'] }}" min="1" style="padding: 4px; height: 32px; font-size: 14px; border-radius: 6px; border: 1px solid #cbdcdc;">
-                                                <button type="submit" class="btn btn-sm btn-info px-2 d-flex align-items-center justify-content-center" style="height: 32px; border-radius: 6px; background-color: #006673; border: none;" title="Update Jumlah">
-                                                    <i class="fas fa-sync-alt text-white" style="font-size: 11px;"></i>
+                                                <input type="number" 
+                                                       name="qty" 
+                                                       class="form-control text-center font-weight-bold bg-light" 
+                                                       value="{{ $item['qty'] }}" 
+                                                       min="1" 
+                                                       inputmode="numeric" 
+                                                       style="width: 70px; height: 38px; border-radius: 6px; border: 1px solid #cbdcdc;">
+                                                <button type="submit" class="btn btn-sm px-3" style="height: 38px; border-radius: 6px; background-color: #006673; color: white;">
+                                                    <i class="fas fa-sync-alt"></i>
                                                 </button>
                                             </form>
                                         </td>
                                         
-                                        <td class="py-3 align-middle text-right">
-                                            <div class="d-flex align-items-center justify-content-end">
-                                                <span class="font-weight-bold mr-3" style="color: #2d5766;">
+                                        <td class="py-4 align-middle text-right">
+                                            <div class="d-flex align-items-center justify-content-end" style="gap: 20px; padding-right: 10px;">
+                                                <span class="font-weight-bold" style="color: #2d5766; min-width: 90px;">
                                                     Rp {{ number_format($subtotal, 0, ',', '.') }}
                                                 </span>
                                                 <form action="{{ route('user.keranjang.hapus', $id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus obat ini dari keranjang?');" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-link text-danger p-0 m-0" style="outline: none; border: none; text-decoration: none;">
-                                                        <i class="fas fa-trash-alt" style="font-size: 15px; color: #fc544b;"></i>
+                                                    <button type="submit" class="btn btn-sm text-white" style="background-color: #2a9d8f; border-radius: 6px; padding: 8px 12px;">
+                                                        <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </div>
@@ -129,9 +134,9 @@
                         <span class="font-weight-bold" style="color: #006673; font-size: 22px;">Rp {{ number_format($totalSemua, 0, ',', '.') }}</span>
                     </div>
 
-                   <a href="{{ route('user.keranjang.alamat') }}" class="btn btn-block py-2.5 text-white font-weight-bold shadow-sm text-center" style="background-color: #325a66; border-radius: 8px; transition: background 0.2s; text-decoration: none;">
+                    <a href="{{ route('user.keranjang.alamat') }}" class="btn btn-block py-2.5 text-white font-weight-bold shadow-sm text-center" style="background-color: #325a66; border-radius: 8px; transition: background 0.2s; text-decoration: none;">
                         <i class="fas fa-map-marker-alt mr-2"></i> Lanjut ke Isi Alamat
-                   </a>
+                    </a>
                     
                     <a href="/" class="btn btn-block btn-light btn-sm mt-2 font-weight-bold py-2 text-muted" style="border: 1px solid #cbdcdc;">
                         <i class="fas fa-arrow-left mr-2"></i> Belanja Lagi

@@ -4,7 +4,7 @@
             
             <div class="col-md-3 text-center text-md-left mb-3 mb-md-0">
                 <a href="{{ route('user.landing') }}" class="navbar-brand-logo">
-                    <img src="{{ asset('assets/img/apotiksis_logo.png') }}" alt="Apotek Sis Logo">
+                    <img src="{{ asset('assets/img/apotiksis_logo.png') }}" alt="APOTIKSIS Logo">
                 </a>
             </div>
             
@@ -13,7 +13,7 @@
                     <div class="input-group">
                         <input type="text" name="keyword" class="form-control border-0 py-4 shadow-sm search-input-custom" placeholder="Cari produk di sini (misal: Paracetamol, Amoxicillin)...">
                         <div class="input-group-append">
-                            <button class="btn btn-mandjur-search shadow-sm" type="submit">
+                            <button class="btn shadow-sm text-white" type="submit" style="background-color: #2a9d8f !important; border: none !important; height: 46px !important; padding-left: 24px !important; padding-right: 24px !important; border-radius: 0 8px 8px 0 !important;">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
@@ -29,6 +29,10 @@
                             <i class="fas fa-user-circle fa-lg"></i> {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow-sm border-0" aria-labelledby="dropdownUser">
+                            <a class="dropdown-item" href="{{ route('user.riwayat') }}">
+                                <i class="fas fa-history mr-2"></i> Riwayat Transaksi
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger font-weight-bold" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt mr-2"></i> Keluar (Logout)
                             </a>

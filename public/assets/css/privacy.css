@@ -1,0 +1,24 @@
+/* Styling untuk halaman Kebijakan Privasi */
+.card {
+    border-radius: 10px;
+}
+
+.content-text h5 {
+    color: #2d5766; /* Warna hijau gelap khas apotek */
+    margin-top: 30px;
+}
+
+.content-text p,
+.content-text li {
+    line-height: 1.8;
+    color: #333;
+}
+
+.content-text ul {
+    margin-left: 20px;
+}
+
+/* Memberikan efek baca yang nyaman */
+.content-text {
+    text-align: justify;
+}

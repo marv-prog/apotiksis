@@ -25,13 +25,15 @@
     font-weight: bold;
     font-size: 13px;
 }
+
+/* Bagian yang diubah dari warna merah ke hijau */
 .step-item.active {
-    color: #e6005c;
+    color: #006673; /* Warna hijau tua (sesuaikan dengan warna tombol/header Anda) */
     font-weight: 600;
 }
 
 .step-item.active .step-number {
-    border-color: #e6005c;
+    border-color: #006673; /* Warna hijau tua untuk lingkaran step */
 }
 
 .step-line {

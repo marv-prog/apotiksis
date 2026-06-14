@@ -9,19 +9,30 @@ class Obat extends Model
 {
     use HasFactory;
 
-    protected $table = 'obats'; // nama tabel di database
-    protected $primaryKey = 'id_obat'; // primary key khusus karena bukan 'id' default
+    protected $table = 'obats'; 
+    protected $primaryKey = 'id_obat';
 
-    // ini daftar kolom yang wajib ada supaya bisa simpan data
     protected $fillable = [
         'nama_obat', 
-        'foto',
+        'foto_obat', // Sesuaikan dengan nama kolom di database Anda
         'id_kategori', 
         'harga_obat', 
         'satuan', 
-        'deskripsi',
+        'deskripsi_obat', // Sesuaikan dengan entitas awal Anda
         'stok', 
         'tanggal_exp', 
         'waktu_produksi'
     ];
+
+    // Relasi ke Kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+    }
+
+    // Relasi ke Detail Transaksi (untuk melihat riwayat penjualan obat ini)
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_obat', 'id_obat');
+    }
 }

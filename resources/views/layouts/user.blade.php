@@ -17,18 +17,12 @@
             
             @include('layouts.navbar')
             
-            <div class="nav-kategori-container border-bottom mb-0">
+            <div class="nav-kategori-container border-bottom mb-0" style="position: sticky; top: 75px; z-index: 900; background-color: #2d5766;">
                 <div class="container-fluid px-md-5">
                     <ul class="nav nav-kategori justify-content-center justify-content-md-start">
                         <li class="nav-item">
-                            <a class="nav-link pl-md-0 font-weight-bold text-dark" href="{{ route('user.landing') }}">Home</a>
+                            <a class="nav-link pl-md-0 font-weight-bold text-white" href="{{ route('user.landing') }}">Home</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Obat Resep</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Obat Bebas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Obat Herbal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Susu & Nutrisi</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Suplemen</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Alat Kesehatan</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,9 +49,12 @@
                             </a>
                         </div>
                     @endif
+                    
                     @yield('content')
                 </div>
             </div>
+
+            @include('layouts.footer')
 
         </div>
     </div>
@@ -66,4 +63,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>

@@ -8,8 +8,10 @@ use App\Http\Controllers\Admin\TransaksiController; // <-- MENAMBAHKAN CONTROLLE
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\User\CustomerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\User\TransactionController; // <-- MENAMBAHKAN CONTROLLER TRANSAKSI USER
 use Illuminate\Foundation\Auth\EmailVerificationRequest; // Bawaan Laravel untuk verifikasi email
 use Illuminate\Http\Request;
+
 
 // ==========================================
 //          ROUTE SISI USER / PEMBELI
@@ -150,3 +152,63 @@ Route::put('/admin/kategori/{id}', [KategoriController::class, 'update']);
 
 // Route untuk menghapus data kategori
 Route::delete('/admin/kategori/{id}', [KategoriController::class, 'destroy']);
+
+// ==========================================
+//          ROUTE ARTIKEL STATIC
+// ==========================================
+
+Route::get('/artikel/detail-sikap-denial', function () {
+    return view('user.artikel.detail_sikap_denial'); // Sesuaikan dengan lokasi file view kamu
+});
+
+Route::get('/artikel/detail-darah-tinggi', function () {
+    return view('user.artikel.detail_darah-tinggi');
+});
+
+Route::get('/artikel/detail-gusi-bengkak', function () {
+    return view('user.artikel.detail_gusi-bengkak');
+});
+
+Route::get('/artikel/detail-hipertiroid', function () {
+    return view('user.artikel.detail_hipertiroid');
+});
+
+Route::get('/artikel/detail-perut-hamil', function () {
+    return view('user.artikel.detail_perut_hamil');
+});
+
+// ==========================================
+//        ROUTE HALAMAN STATIS LAINNYA
+// ==========================================
+Route::get('/pengiriman', function () {
+    return view('user.pengiriman'); // Mengarah ke folder resources/views/user/pengiriman.blade.php
+})->name('user.pengiriman');
+
+// ==========================================
+//     ROUTE CARA ORDER (HALAMAN STATIS)
+// ==========================================
+Route::get('/cara-order', function () {
+    return view('user.cara_order');
+})->name('user.cara_order');
+
+// ==========================================
+//     route kebijakan privasi
+// ==========================================
+Route::get('/kebijakan-privasi', function () {
+    return view('user.kebijakan_privasi');
+})->name('user.kebijakan_privasi');
+
+// ==========================================
+// TENTANG KAMI (HALAMAN STATIS)
+// ==========================================
+Route::get('/tentang-kami', function () {
+    return view('user.tentang_kami');
+})->name('user.tentang_kami');
+
+// ==========================================
+// RIWAYAT TRANSAKSI USER
+// ==========================================
+Route::middleware(['auth'])->group(function () {
+    Route::get('/riwayat-transaksi', [TransactionController::class, 'index'])->name('user.riwayat');
+    Route::get('/transaksi/{id}', [TransactionController::class, 'show'])->name('user.transaksi.detail');
+});

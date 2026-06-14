@@ -1,8 +1,20 @@
 .banner-welcome {
-    background: linear-gradient(135deg, #a4d4d4 0%, #cbdcdc 100%) !important;
+    /* 🟢 UBAH GRADASI: Menggunakan warna hijau cerah kekuningan segar sesuai mockup gambar ke-2 */
+    background: linear-gradient(135deg, #b5e27a 0%, #cbe9a1 100%) !important;
     border-radius: 12px;
     padding: 40px;
     border: none !important;
+}
+
+/* 🟢 MENAMBAHKAN KONTRAS WARNA TEKS BANNER AGAR MUDAH DIBACA */
+.banner-welcome h1,
+.banner-welcome .font-weight-bold {
+    color: #164e47 !important; /* Hijau tua gelap */
+}
+
+.banner-welcome p,
+.banner-welcome .lead {
+    color: #1e5a52 !important; /* Hijau daun medium */
 }
 
 .mandjur-style-card {
@@ -14,7 +26,8 @@
 
 /* CSS MENU KATEGORI GESER DRAG MOUSE */
 .category-section-title {
-    color: #2d5766;
+    /* 🟢 UBAH WARNA JUDUL KATEGORI */
+    color: #164e47; /* Hijau tua */
     font-weight: 700;
     font-size: 22px;
 }
@@ -36,7 +49,8 @@
     height: 5px;
 }
 .scroll-category-container::-webkit-scrollbar-thumb {
-    background: #cbdcdc;
+    /* 🟢 UBAH WARNA SCROLLBAR: Diselaraskan dengan warna hijau daun muda */
+    background: #cbe9a1;
     border-radius: 10px;
 }
 .category-slider-item {
@@ -51,40 +65,48 @@
 .category-slider-item:hover {
     transform: translateY(-4px);
 }
+
+/* 🟢 BULATAN KATEGORI (Default) */
 .category-circle {
     width: 70px;
     height: 70px;
-    background-color: #006673;
+    background-color: #1ea385; /* Hijau utama sesuai mockup */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 10px auto;
-    box-shadow: 0 4px 10px rgba(0, 102, 115, 0.15);
+    box-shadow: 0 4px 10px rgba(30, 163, 133, 0.15);
 }
 
+/* 🟢 BULATAN KATEGORI (Saat Aktif / Diklik) */
 .category-slider-item.active .category-circle {
-    background-color: #2d5766;
-    box-shadow: 0 4px 12px rgba(45, 87, 102, 0.4);
+    background-color: #164e47; /* Hijau tua */
+    box-shadow: 0 4px 12px rgba(22, 78, 71, 0.4);
     border: 2px solid #ffffff;
 }
 
+/* 🟢 BULATAN KATEGORI (Saat Disorot Mouse) */
 .category-slider-item:hover .category-circle {
-    background-color: #004d57;
+    background-color: #137a63; /* Hijau agak gelap sedikit saat hover */
 }
 .category-circle i {
     color: #ffffff;
     font-size: 24px;
 }
+
+/* 🟢 NAMA TEKS KATEGORI (Default) */
 .category-name {
-    color: #006673;
+    color: #1ea385; /* Hijau utama */
     font-weight: 600;
     font-size: 13px;
     white-space: normal !important;
     display: block;
     line-height: 1.2;
 }
+
+/* 🟢 NAMA TEKS KATEGORI (Saat Aktif / Diklik) */
 .category-slider-item.active .category-name {
     font-weight: 700;
-    color: #2d5766;
+    color: #164e47; /* Hijau tua */
 }
