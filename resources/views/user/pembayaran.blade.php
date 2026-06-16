@@ -77,6 +77,10 @@
                             </div>
                         </label>
                     </div>
+
+                    <button type="submit" class="btn btn-block py-2.5 text-white font-weight-bold shadow-sm text-center mt-3" style="background-color: #325a66; border-radius: 8px;">
+                        <i class="fas fa-check-circle mr-2"></i> Konfirmasi Pembayaran
+                    </button>
                 </form>
             </div>
         </div>
@@ -105,12 +109,8 @@
                     <span class="font-weight-bold" style="color: #2d5766; font-size: 16px;">Total Bayar</span>
                     <span class="font-weight-bold" style="color: #e6005c; font-size: 18px;">Rp {{ number_format($totalSemua, 0, ',', '.') }}</span>
                 </div>
-
-                <button type="submit" form="formBayar" class="btn btn-block py-2.5 text-white font-weight-bold shadow-sm text-center" style="background-color: #325a66; border-radius: 8px;">
-                    <i class="fas fa-check-circle mr-2"></i> Konfirmasi Pembayaran
-                </button>
                 
-                <a href="{{ route('user.keranjang.alamat') }}" class="btn btn-block btn-light btn-sm mt-2 font-weight-bold py-2 text-muted" style="border: 1px solid #cbdcdc; text-decoration: none;">
+                <a href="{{ route('user.keranjang.alamat') }}" class="btn btn-block btn-light btn-sm font-weight-bold py-2 text-muted" style="border: 1px solid #cbdcdc; text-decoration: none;">
                     <i class="fas fa-arrow-left mr-2"></i> Kembali ke Alamat
                 </a>
             </div>

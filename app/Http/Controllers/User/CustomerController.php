@@ -137,6 +137,7 @@ class CustomerController extends Controller
         $transaksi->total_harga       = $totalHarga; 
         $transaksi->bayar             = $totalHarga; 
         $transaksi->tanggal_transaksi = now(); 
+        $transaksi->metode_pembayaran = $metodePilihan;
         
         $transaksi->save(); 
 

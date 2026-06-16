@@ -12,7 +12,6 @@ class DetailTransaksi extends Model
     protected $table = 'detail_transaksis';
     protected $primaryKey = 'id_detail';
     
-    // Sudah benar, aktifkan timestamps karena di database ada created_at & updated_at
     public $timestamps = true; 
 
     protected $fillable = [
@@ -29,8 +28,7 @@ class DetailTransaksi extends Model
         return $this->belongsTo(Obat::class, 'id_obat', 'id_obat');
     }
 
-    // TAMBAHAN: Relasi balik ke Transaksi
-    // Ini membantu jika Anda ingin memanggil $detail->transaksi->tanggal_transaksi
+    // Relasi balik ke Transaksi
     public function transaksi()
     {
         return $this->belongsTo(Transaksi::class, 'id_transaksi', 'id_transaksi');

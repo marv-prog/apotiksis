@@ -15,7 +15,7 @@
                     <div class="content-text">
                         <p>PT APOTIK SIS JAYA EUY (“APOTIK SIS”, “Kami”) menghormati privasi pengguna situs web www.apotk-sis.co.id, aplikasi, layanan konsultasi, layanan pelanggan, serta layanan lain yang Kami sediakan dari waktu ke waktu (“Layanan”).</p>
 
-                        <h5 class="mt-4 font-weight-bold">1. Data Pribadi yang Kami Kumpulkan</h5>
+                        <h5 class="mt-4 font-weight-bold">Data Pribadi yang Kami Kumpulkan</h5>
                         <p>Kami dapat mengumpulkan Data Pribadi Anda, termasuk namun tidak terbatas pada:</p>
                         <ul>
                             <li>Nama lengkap;</li>
@@ -25,7 +25,7 @@
                             <li>Data dan informasi kesehatan, resep, keluhan, riwayat penggunaan obat, serta alergi.</li>
                         </ul>
 
-                        <h5 class="mt-4 font-weight-bold">19. Hubungi Kami</h5>
+                        <h5 class="mt-4 font-weight-bold">Hubungi Kami</h5>
                         <p>Apabila Anda memiliki pertanyaan atau keluhan terkait Data Pribadi Anda, Anda dapat menghubungi:</p>
                         <div class="bg-light p-3 rounded">
                             <p><strong>PT APOTIK SIS JAYA EUY</strong><br>

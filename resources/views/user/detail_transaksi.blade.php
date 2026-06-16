@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-sm-6 text-sm-end">
                             <h6 class="text-muted mb-1">Metode Pembayaran:</h6>
-                            <span class="badge bg-primary fs-6">COD</span>
+                            <span class="badge bg-primary fs-6">{{ session('metode_terpilih', 'COD') }}</span>
                         </div>
                     </div>
 
@@ -55,6 +55,13 @@
                                 <span>Rp {{ number_format($transaksi->bayar, 0, ',', '.') }}</span>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="mt-4 p-3 border-top text-center">
+                        <p class="text-muted">
+                            Terima kasih! Nanti driver kami akan menghubungi Anda secepatnya jika barang akan dikirim.<br>
+                            Terima kasih sudah order di <strong>APOTIK SIS</strong>.
+                        </p>
                     </div>
 
                     <hr class="my-4">

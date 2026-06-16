@@ -17,6 +17,7 @@ class Transaksi extends Model
         'total_harga',
         'bayar',
         'tanggal_transaksi', 
+        'metode_pembayaran',
     ];
 
     public $timestamps = false; 

@@ -14,7 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // menandakan Primary Key tabel namanya id_user, bukan id
     protected $primaryKey = 'id_user';
 
-    // kolom yang boleh diisi (sinkron dengan gambar entitas e558e6)
+    // kolom yang boleh diisi
     protected $fillable = [
         'nama_user',
         'username',

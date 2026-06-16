@@ -162,7 +162,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2026_05_08_163558_create_transaksis_table', 3),
 (12, '2026_05_08_163612_create_detail_transaksis_table', 3),
 (13, '2026_05_11_020334_add_deskripsi_to_obats_table', 4),
-(14, '2026_05_14_151852_add_foto_to_obats_table', 5),
 (15, '2019_12_14_000001_create_personal_access_tokens_table', 6);
 
 -- --------------------------------------------------------

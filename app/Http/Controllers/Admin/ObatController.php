@@ -30,13 +30,11 @@ class ObatController extends Controller
         // Ambil semua data kategori dari phpMyAdmin
         $categories = Kategori::all(); 
 
-        // ⚡ TAMBAHKAN INI: Sediakan variabel penangkal error jika halaman create memakai layout sidebar dashboard
         $total_obat = Obat::count();
         $stok_menipis = Obat::where('stok', '<=', 10)->count();
         $total_transaksi = Transaksi::count();
         $total_pendapatan = Transaksi::sum('total_harga');
 
-        // FIX: Diubah dari 'admin.obat.create' menjadi 'admin.create' sesuai folder aslimu
         return view('admin.create', compact('categories', 'total_obat', 'stok_menipis', 'total_transaksi', 'total_pendapatan'));
     }
 
@@ -85,14 +83,33 @@ class ObatController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // cari data dan update dengan data baru dari form
-        $obat = Obat::findOrFail($id);
-        $obat->update($request->all());
+{
+    $obat = Obat::findOrFail($id);
+    
+    // 1. Ambil semua data input
+    $data = $request->all();
 
-        return redirect('/admin/dashboard')->with('success', 'Data obat berhasil diperbarui!');
+    // 2. Cek apakah ada file foto baru yang diunggah
+    if ($request->hasFile('foto')) {
+        // Hapus foto lama jika perlu (opsional, agar storage tidak penuh)
+        if ($obat->foto && file_exists(public_path('assets/img/obat/'.$obat->foto))) {
+            unlink(public_path('assets/img/obat/'.$obat->foto));
+        }
+
+        // Simpan foto baru
+        $file = $request->file('foto');
+        $nama_foto = time() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('assets/img/obat'), $nama_foto);
+        
+        // Update nama file di array data
+        $data['foto'] = $nama_foto;
     }
 
+    // 3. Update database
+    $obat->update($data);
+
+    return redirect('/admin/dashboard')->with('success', 'Data obat berhasil diperbarui!');
+}
     public function destroy($id)
     {
         $obat = Obat::findOrFail($id);

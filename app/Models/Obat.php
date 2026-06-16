@@ -14,11 +14,11 @@ class Obat extends Model
 
     protected $fillable = [
         'nama_obat', 
-        'foto_obat', // Sesuaikan dengan nama kolom di database Anda
+        'foto',
         'id_kategori', 
         'harga_obat', 
         'satuan', 
-        'deskripsi_obat', // Sesuaikan dengan entitas awal Anda
+        'deskripsi', 
         'stok', 
         'tanggal_exp', 
         'waktu_produksi'
@@ -30,7 +30,7 @@ class Obat extends Model
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
 
-    // Relasi ke Detail Transaksi (untuk melihat riwayat penjualan obat ini)
+    // untuk melihat riwayat penjualan obat ini
     public function detailTransaksi()
     {
         return $this->hasMany(DetailTransaksi::class, 'id_obat', 'id_obat');
