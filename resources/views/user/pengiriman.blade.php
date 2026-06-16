@@ -31,7 +31,7 @@
                         <li class="mb-1"> Pengiriman dilakukan setiap hari sesuai jam operasional.</li>
                         <li class="mb-1"> Pesanan diproses dan dikirim langsung oleh tim internal kami.</li>
                         <li class="mb-1"> Konfirmasi pengiriman akan diinformasikan kepada pelanggan melalui kontak yang terdaftar.</li>
-                        <li> Area jangkauan mengikuti cakupan operasional kurir internal Apotek Mandjur.</li>
+                        <li> Area jangkauan mengikuti cakupan operasional kurir internal APOTIK SIS.</li>
                     </ul>
                 </div>
             </div>
@@ -40,9 +40,9 @@
 
             <h4 class="font-weight-bold mb-3 text-dark" style="font-size: 18px;">Proses Pesanan</h4>
             <ol class="text-secondary pl-3 mb-4" style="font-size: 14px; line-height: 1.8;">
-                <li>Pelanggan melakukan pemesanan melalui website Apotiksis.</li>
+                <li>Pelanggan melakukan pemesanan melalui website APOTIK SIS.</li>
                 <li>Sistem menerima pesanan dan pembayaran terkonfirmasi.</li>
-                <li>Tim Mandjur menyiapkan pesanan (picking dan packing) dengan standar higienis.</li>
+                <li>Tim APOTIK SIS menyiapkan pesanan (picking dan packing) dengan standar higienis.</li>
                 <li>Pesanan diserahkan kepada kurir resmi APOTIK SIS.</li>
                 <li>Pesanan segera diantarkan langsung ke alamat pelanggan.</li>
             </ol>

@@ -38,7 +38,7 @@
                             @forelse($users as $index => $user)
                                 <tr class="text-center">
                                     <td class="font-weight-bold text-muted">{{ $index + 1 }}</td>
-                                    <td class="text-left font-weight-600">{{ $user->name ?? 'User Apotik' }}</td>
+                                    <td class="text-left font-weight-600">{{ $user->nama_user ?? 'User Apotik' }}</td>
                                     <td class="text-left text-muted">{{ $user->email }}</td>
                                     <td>
                                         <span class="badge badge-light p-2 font-weight-normal text-dark">
